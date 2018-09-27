@@ -1,32 +1,102 @@
 import React, { Component } from 'react';
-import { FlatList, Text, StyleSheet } from 'react-native';
+import { FlatList, Text, StyleSheet, TouchableHighlight, Alert } from 'react-native';
 import { connect } from 'react-redux';
+import Swipeout from 'react-native-swipeout';
 import { bindActionCreators } from 'redux';
-import { getAllTasks } from '../actions';
 
-const mapStateToProps = ({ tasks }) => {
-  return tasks;
+import { Separator } from './common';
+import { getCurrentDayTasks, deleteOneTask } from '../actions';
+
+
+const mapStateToProps = ({ data }) => {
+  return data;
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ getAllTasks }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({
+   getCurrentDayTasks,
+   deleteOneTask
+ }, dispatch);
 
 const extractKey = ({ id }) => id.toString();
 
 class ListItem extends Component {
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeRow: null
+    };
+  }
   componentDidMount() {
-    this.props.getAllTasks();
+    this.props.getCurrentDayTasks();
   }
 
-  renderItem = ({ item }) => {
+  onSwipeOpen(rowId, direction) {
+    if (typeof direction !== 'undefined') {
+        this.setState({ activeRow: rowId });
+    }
+  }
+
+  onSwipeClose(rowId, direction) {
+    if (rowId === this.state.activeRow && typeof direction !== 'undefined') {
+        this.setState({ activeRow: null });
+    }
+  }
+
+  handlePress(item) {
+    Alert.alert(
+      'Are you sure to delete?',
+      `${item.task_name} will be deleted permanently`,
+      [
+        { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+        { text: 'Delete', onPress: () => this.props.deleteOneTask(item.id), style: 'destructive' },
+      ],
+      { cancelable: false }
+    );
+  }
+
+  renderItem = ({ item, index }) => {
+    const swipeBtns = [
+      {
+        text: 'Edit',
+        backgroundColor: 'rgb(91, 173, 223)',
+      },
+      {
+        text: 'Delete',
+        backgroundColor: 'rgb(233, 77, 61)',
+        onPress: () => this.handlePress(item)
+      }
+    ];
+    const swipeBtnLeft = [
+      {
+        text: 'Complete',
+        backgroundColor: 'rgb(138, 197, 147)',
+        //onPress: () => this.(item)
+      }
+    ];
+
     return (
-      <Text
-        key={item.id}
-        style={styles.row}
-        onPress={() => this.props.navigation('TaskView')}
+      <Swipeout
+        left={swipeBtnLeft}
+        right={swipeBtns}
+        rowID={index}
+        autoClose
+        sectionId={1}
+        backgroundColor='transparent'
+        sensitivity={10}
+        onOpen={(secId, rowId, direction) => this.onSwipeOpen(rowId, direction)}
+        onClose={(secId, rowId, direction) => this.onSwipeClose(rowId, direction)}
       >
-        {item.task_name}
-      </Text>
+      <TouchableHighlight>
+        <Text
+          key={item.id}
+          style={styles.row}
+          onPress={() => this.props.navigation('TaskView', { id: item.id })}
+        >
+          {item.task_name}
+        </Text>
+      </TouchableHighlight>
+      <Separator />
+    </Swipeout>
     );
   };
 
@@ -51,7 +121,6 @@ const styles = StyleSheet.create({
   },
   row: {
     padding: 15,
-    marginBottom: 5,
     backgroundColor: 'skyblue',
   },
   header: {
