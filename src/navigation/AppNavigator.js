@@ -1,12 +1,14 @@
 import { createSwitchNavigator } from 'react-navigation';
 import AuthNavigator from './AuthNavigator';
-import Home from '../screens/Home';
+import HomeNavigator from './HomeNavigator';
+import AddTaskNavigator from './AddTaskNavigator';
 import TaskView from '../screens/TaskView';
 
 const AppNavigator = createSwitchNavigator({
-    Auth: AuthNavigator,
-    Home,
-    TaskView
-  });
+  AuthNavigator,
+  HomeNavigator,
+  AddTaskNavigator,
+  TaskView
+});
 
 export default AppNavigator;
