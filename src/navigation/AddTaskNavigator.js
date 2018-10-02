@@ -1,11 +1,25 @@
 import { createStackNavigator } from 'react-navigation';
+import HomeNavigator from './HomeNavigator';
 import AddTask from '../screens/AddTask';
 import TaskForm from '../screens/TaskForm';
-import EventTasks from '../screens/EventTasks';
+import SelectTask from '../screens/SelectTask';
+import EditTaskForm from '../screens/EditTaskForm';
 
 const AddTaskNavigator = createStackNavigator({
+  HomeNavigator: {
+    screen: HomeNavigator,
+    navigationOptions: () => ({
+      header: null
+    })
+  },
   AddTask: {
     screen: AddTask,
+    navigationOptions: () => ({
+      header: null
+    })
+  },
+  SelectTask: {
+    screen: SelectTask,
     navigationOptions: () => ({
       header: null
     })
@@ -16,12 +30,13 @@ const AddTaskNavigator = createStackNavigator({
       header: null
     })
   },
-  EventTasks: {
-    screen: EventTasks,
+  EditTaskForm: {
+    screen: EditTaskForm,
     navigationOptions: () => ({
       header: null
     })
-  }
+  },
+  mode: 'modal',
 });
 
 export default AddTaskNavigator;

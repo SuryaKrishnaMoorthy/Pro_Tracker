@@ -8,16 +8,15 @@ class DatePickerPro extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      startDate: moment(new Date()).format('YYYY-MM-DD'),
-      endDate: moment(new Date()).format('YYYY-MM-DD')
+      date: this.props.selectedDate || moment(new Date()).format('YYYY-MM-DD')
     };
   }
 
 render() {
     return (
-      <View>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
         <View style={{ flexDirection: 'row' }}>
-          <Text style={{ marginTop: 20 }}>Start Date: </Text>
+          <Text style={{ marginTop: 20 }}>{this.props.dateText} </Text>
           <DatePicker
             mode="date"
             customStyles={{
@@ -25,44 +24,26 @@ render() {
                 display: 'none'
               },
               dateTouchBody: {
-                width: 100,
-                height: 50,
+                marginTop: 9,
                 marginLeft: 10
+              },
+              dateInput: {
+                borderWidth: 0
               }
             }}
             style={{ width: 100 }}
-            date={this.state.startDate}
+            date={this.state.date}
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
             onDateChange={(date) => {
-              this.setState({ startDate: date });
-              this.props.updateDate(date, this.state.endDate);
+              this.setState({ date });
+              if (this.props.dateType === 'start') {
+                this.props.updateDate(date);
+              } else {
+                this.props.updateDate(date);
+              }
             }}
           />
-        </View>
-        <View style={{ flexDirection: 'row' }}>
-          <Text style={{ marginTop: 20, marginRight: 9 }}>End Date:</Text>
-            <DatePicker
-            customStyles={{
-              dateIcon: {
-                display: 'none'
-              },
-              dateTouchBody: {
-                width: 100,
-                height: 50,
-                marginLeft: 10
-              }
-            }}
-            style={{ width: 100 }}
-            mode="date"
-            date={this.state.endDate}
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            onDateChange={(date) => {
-              this.setState({ endDate: date });
-              this.props.updateDate(this.state.startDate, date);
-            }}
-            />
         </View>
     </View>
     );

@@ -7,7 +7,8 @@ import {
   SIGNUP_USER,
   LOGIN_USER,
   LOGIN_USER_SUCCESS,
-  LOGIN_USER_FAIL
+  LOGIN_USER_FAIL,
+  LOGOUT
  } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -49,6 +50,9 @@ export default (state = INITIAL_STATE, action) => {
         loading: false,
         loggedIn: false
       };
+    case LOGOUT:
+      console.log('Reducer: Logout');
+      return INITIAL_STATE;
     default:
       return state;
   }

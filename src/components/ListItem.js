@@ -3,9 +3,10 @@ import { FlatList, Text, StyleSheet, TouchableHighlight, Alert } from 'react-nat
 import { connect } from 'react-redux';
 import Swipeout from 'react-native-swipeout';
 import { bindActionCreators } from 'redux';
+import moment from 'moment';
 
 import { Separator } from './common';
-import { getCurrentDayTasks, deleteOneTask } from '../actions';
+import { getCurrentDayTasks, deleteOneTask, createOneStatus } from '../actions';
 
 
 const mapStateToProps = ({ data }) => {
@@ -14,7 +15,8 @@ const mapStateToProps = ({ data }) => {
 
 const mapDispatchToProps = dispatch => bindActionCreators({
    getCurrentDayTasks,
-   deleteOneTask
+   deleteOneTask,
+   createOneStatus
  }, dispatch);
 
 const extractKey = ({ id }) => id.toString();
@@ -27,7 +29,7 @@ class ListItem extends Component {
     };
   }
   componentDidMount() {
-    this.props.getCurrentDayTasks();
+    this.props.getCurrentDayTasks(moment().add(this.props.dayIndex, 'day'));
   }
 
   onSwipeOpen(rowId, direction) {
@@ -42,7 +44,7 @@ class ListItem extends Component {
     }
   }
 
-  handlePress(item) {
+  handleDelete(item) {
     Alert.alert(
       'Are you sure to delete?',
       `${item.task_name} will be deleted permanently`,
@@ -54,23 +56,35 @@ class ListItem extends Component {
     );
   }
 
+  handleComplete(item) {
+    const { id } = item;
+    const taskDate = moment(new Date()).format('YYYY-MM-DD');
+    const status = 'complete';
+    this.props.createOneStatus({ task_id: id, task_date: taskDate, status });
+  }
+
+  handleEdit(item) {
+    return this.props.navigation('EditTaskForm', { task: item });
+  }
+
   renderItem = ({ item, index }) => {
     const swipeBtns = [
       {
         text: 'Edit',
         backgroundColor: 'rgb(91, 173, 223)',
+        onPress: () => this.handleEdit(item)
       },
       {
         text: 'Delete',
         backgroundColor: 'rgb(233, 77, 61)',
-        onPress: () => this.handlePress(item)
+        onPress: () => this.handleDelete(item)
       }
     ];
     const swipeBtnLeft = [
       {
         text: 'Complete',
         backgroundColor: 'rgb(138, 197, 147)',
-        //onPress: () => this.(item)
+        onPress: () => this.handleComplete(item)
       }
     ];
 
@@ -90,7 +104,9 @@ class ListItem extends Component {
         <Text
           key={item.id}
           style={styles.row}
-          onPress={() => this.props.navigation('TaskView', { id: item.id })}
+          onPress={() => this.props.navigation('TaskView', {
+            id: item.id
+          })}
         >
           {item.task_name}
         </Text>

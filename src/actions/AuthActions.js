@@ -1,4 +1,4 @@
-import { signUpRequest, loginRequest } from '../requests';
+import { signUpRequest, loginRequest, logoutRequest } from '../requests';
 import {
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
@@ -9,6 +9,7 @@ import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
   LOGIN_USER,
+  LOGOUT
 } from './types';
 
 export const firstNameChanged = (text) => ({
@@ -57,6 +58,13 @@ export const loginUser = ({ email, password }) => {
     } else {
       loginUserFail(dispatch);
     }
+  };
+};
+
+export const logoutUser = () => {
+  return async (dispatch) => {
+    await logoutRequest();
+    dispatch({ type: LOGOUT });
   };
 };
 

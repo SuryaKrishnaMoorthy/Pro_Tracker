@@ -22,3 +22,12 @@ export const signUpRequest = async (body) => {
   }
   return response.data;
 };
+
+export const logoutRequest = async () => {
+  try {
+    console.log('Request: Logout');
+    await AsyncStorage.clear();
+  } catch (error) {
+    console.log(error);
+  }
+};

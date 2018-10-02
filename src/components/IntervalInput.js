@@ -7,14 +7,18 @@ class IntervalInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 1,
+      value: this.props.selectedInterval || 1,
     };
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text>Recur every</Text>
+        {
+          this.props.frequency !== 'MONTHLY'
+          ? <Text>Recur every</Text>
+         : <Text>On every</Text>
+        }
         <View>
           <Input
             inputContainerStyle={{ width: 30, paddingLeft: 0 }}
@@ -36,6 +40,11 @@ class IntervalInput extends Component {
         {
           this.props.frequency === 'WEEKLY'
           ? <Text>week(s)</Text>
+         : ''
+        }
+        {
+          this.props.frequency === 'MONTHLY'
+          ? <Text>month(s)</Text>
          : ''
         }
         {

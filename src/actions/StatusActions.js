@@ -1,4 +1,4 @@
-import { deleteOneStatusRequest } from '../requests';
+import { deleteOneStatusRequest, createOneStatusRequest } from '../requests';
 import {
   CREATE_ONE_STATUS,
   DELETE_ONE_STATUS
@@ -6,8 +6,8 @@ import {
 
 export const createOneStatus = (body) => {
   return async (dispatch) => {
-    //await createOneStatusRequest(body);
-    dispatch({ type: CREATE_ONE_STATUS, payload: body });
+    const payload = await createOneStatusRequest(body);
+    dispatch({ type: CREATE_ONE_STATUS, payload });
   };
 };
 

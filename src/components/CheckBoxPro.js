@@ -5,63 +5,89 @@ import { CheckBox } from 'react-native-elements';
 class CheckBoxPro extends Component {
   constructor(props) {
     super(props);
+    const checkedDays = this.props.selectedDays ? this.props.selectedDays.split(',') : [];
 
     this.state = {
-      checkboxes: [{
-        id: 1,
-        title: 'Sun',
-        checked: false
+      checkboxes: {
+        ALL: {
+          title: 'All days',
+          checked: checkedDays.length === 7
+        },
+        SU: {
+          title: 'Sun',
+          checked: checkedDays.includes('SU')
+        },
+        MO: {
+          title: 'Mon',
+          checked: checkedDays.includes('MO')
+        },
+        TU: {
+          title: 'Tue',
+          checked: checkedDays.includes('TU')
+        },
+        WE: {
+          title: 'Wed',
+          checked: checkedDays.includes('WE')
+        },
+        TH: {
+          title: 'Thu',
+          checked: checkedDays.includes('TH')
+        },
+        FR: {
+          title: 'Fri',
+          checked: checkedDays.includes('FR')
+        },
+        SA: {
+          title: 'Sat',
+          checked: checkedDays.includes('SA')
+        }
       },
-      {
-        id: 2,
-        title: 'Mon',
-        checked: false
-      },
-      {
-        id: 3,
-        title: 'Tue',
-        checked: false
-      },
-      {
-        id: 4,
-        title: 'Wed',
-        checked: false
-      },
-      {
-        id: 5,
-        title: 'Thu',
-        checked: false
-      },
-      {
-        id: 6,
-        title: 'Fri',
-        checked: false
-      },
-      {
-        id: 7,
-        title: 'Sat',
-        checked: false
-      }
-    ]
+      byDay: this.props.selectedDays || ''
     };
   }
 
+  setAllDay(checkedState) {
+    const checkboxes = this.state.checkboxes;
+    Object.keys(checkboxes).forEach((id) => {
+      checkboxes[id].checked = checkedState;
+    });
+    const byDay = checkedState ? 'SU,MO,TU,WE,TH,FR,SA' : '';
+    this.setState({ checkboxes, byDay });
+    return byDay;
+  }
+
   toggleCheckbox(id) {
-    const changedCheckbox = this.state.checkboxes.find((cb) => cb.id === id);
-    changedCheckbox.checked = !changedCheckbox.checkbox;
-    const checkboxes = Object.assign({}, this.state.checkboxes, changedCheckbox);
-    this.setState({ checkboxes });
+    const changedCheckbox = this.state.checkboxes[id];
+    changedCheckbox.checked = !changedCheckbox.checked;
+    const checkboxes = { ...this.state.checkboxes, [id]: changedCheckbox };
+    let byDay = '';
+    Object.keys(checkboxes).forEach((checkboxId) => {
+      if (checkboxes[checkboxId].checked) {
+        byDay = `${byDay},${checkboxId}`;
+      }
+    });
+    byDay = byDay.substring(1);
+    this.setState({ checkboxes, byDay });
+    return byDay;
   }
 
   render() {
     return (
-      this.state.checkboxes.map((cb) =>
-        <View key={cb.id.toString()} style={styles.container}>
+      Object.keys(this.state.checkboxes).map((id) =>
+        <View key={id.toString()} style={styles.container}>
           <CheckBox
-            key={cb.id.toString()}
-            title={cb.title}
-            checked={cb.checked}
-            onPress={() => this.toggleCheckbox(cb.id)}
+            key={id.toString()}
+            title={this.state.checkboxes[id].title}
+            checked={this.state.checkboxes[id].checked}
+            onPress={() => {
+              let byDay = this.state.byDay;
+              if (id === 'ALL') {
+                byDay = this.setAllDay(!this.state.checkboxes[id].checked);
+              } else {
+                byDay = this.toggleCheckbox(id);
+              }
+              this.props.updateByDay(byDay);
+             }}
             size={15}
             textStyle={{ fontSize: 10 }}
           />

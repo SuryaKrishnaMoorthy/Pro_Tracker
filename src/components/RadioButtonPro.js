@@ -5,17 +5,17 @@ import { View } from 'react-native';
 
 class RadioButtonPro extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       value: '',
-      index: 0
+      index: this.props.selectedFrequency || 0
     };
   }
 
   render() {
     return (
-      <View>
+      <View style={{ alignItems: 'center' }}>
         <RadioForm
           formHorizontal
           animation
@@ -59,8 +59,6 @@ class RadioButtonPro extends Component {
                   paddingLeft: 4
                 }}
                 labelWrapStyle={{
-                  borderRightWidth: 0.7,
-                  borderColor: 'black',
                   paddingRight: 10
                 }}
               />

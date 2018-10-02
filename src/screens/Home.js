@@ -4,6 +4,7 @@ import { Header } from 'react-native-elements';
 import ListItem from '../components/ListItem';
 
 class HomeScreen extends Component {
+
   render() {
     const { navigation } = this.props;
     const imageSource = { uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxUzbCCpQTbr0X1khDXNbBzYkpDiR33Pu-3pHVRvXH0vRfwXYn' };
@@ -29,7 +30,10 @@ class HomeScreen extends Component {
             day: 'numeric'
           })}</Text>
         </ImageBackground>
-        <ListItem navigation={this.props.navigation.navigate} />
+        <ListItem
+          navigation={this.props.navigation.navigate}
+          dayIndex={this.props.dayIndex}
+        />
       </ScrollView>
     );
   }

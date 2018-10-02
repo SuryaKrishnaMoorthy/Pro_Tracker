@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
-import { FormLabel, FormInput, FormValidationMessage, Button } from 'react-native-elements';
+import { bindActionCreators } from 'redux';
+import { View, Text, StyleSheet } from 'react-native';
+import { Input, Button } from 'react-native-elements';
+
 import {
   firstNameChanged,
   lastNameChanged,
@@ -11,7 +13,33 @@ import {
   signUpUser
 } from '../actions';
 
+const mapStateToProps = ({ auth }) => {
+  const {
+    email,
+    password,
+    first_name,
+    last_name,
+    zip_code,
+    error,
+    loading,
+    loggedIn
+  } = auth;
+
+  return { email, password, first_name, last_name, zip_code, error, loading, loggedIn };
+};
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  firstNameChanged,
+  lastNameChanged,
+  zipCodeChanged,
+  emailChanged,
+  passwordChanged,
+  signUpUser
+ }, dispatch);
+
 class SignUpScreen extends Component {
+
+
   onFirstNameChange(text) {
     this.props.firstNameChanged(text);
   }
@@ -50,75 +78,88 @@ class SignUpScreen extends Component {
     })
     .then(() => {
       if (this.props.loggedIn) {
-        this.props.navigation.navigate('Home');
+        this.props.navigation.navigate('HomeNavigator');
       }
     });
   }
 
-
   render() {
     return (
-      <View>
-        <FormLabel>FirstName</FormLabel>
-        <FormInput
+      <View style={styles.signupForm}>
+        <Input
+          containerStyle={styles.inputStyle}
           onChangeText={this.onFirstNameChange.bind(this)}
+          label='First name'
           value={this.props.first_name}
+          onFocus={this.focus}
+          onBlur={this.blur}
         />
 
-        <FormLabel>LastName</FormLabel>
-        <FormInput
+        <Input
+          containerStyle={styles.inputStyle}
+          label='Last name'
           onChangeText={this.onLastNameChange.bind(this)}
           value={this.props.last_name}
+          onFocus={this.focus}
+          onBlur={this.blur}
         />
 
-        <FormLabel>Email</FormLabel>
-        <FormInput
-          placeholder='user@email.com'
+        <Input
+          containerStyle={styles.inputStyle}
+          label='Email'
           onChangeText={this.onEmailChange.bind(this)}
           value={this.props.email}
+          onFocus={this.focus}
+          onBlur={this.blur}
         />
 
-        <FormLabel>Password</FormLabel>
-        <FormInput
-          placeholder='password'
+        <Input
+          containerStyle={styles.inputStyle}
+          secureTextEntry
+          label='Password'
           onChangeText={this.onPasswordChange.bind(this)}
           value={this.props.password}
+          onFocus={this.focus}
+          onBlur={this.blur}
         />
 
-        <FormLabel>Zipcode</FormLabel>
-        <FormInput
+        <Input
+          containerStyle={styles.inputStyle}
+          label='Zipcode'
           onChangeText={this.onZipCodeChange.bind(this)}
           value={this.props.zip_code}
+          onFocus={this.focus}
+          onBlur={this.blur}
         />
 
-        <FormValidationMessage />
-
-        <Button onPress={this.onSignUpButtonPress.bind(this)} title='Sign Up' />
+        <Button
+          style={styles.buttonStyle}
+          onPress={this.onSignUpButtonPress.bind(this)}
+          title='Sign Up'
+        />
       </View>
     );
   }
 }
 
-const mapStateToProps = ({ auth }) => {
-  const {
-    email,
-    password,
-    first_name,
-    last_name,
-    zip_code,
-    error,
-    loading,
-    loggedIn
-  } = auth;
+const styles = StyleSheet.create({
+  signupForm: {
+    alignSelf: 'stretch',
+    height: '100%',
+    marginTop: '70%',
+    marginLeft: '5%',
+    marginBottom: '10%'
+  },
+  inputStyle: {
+    alignSelf: 'stretch',
+    borderBottomColor: '#f8f8f8',
+    marginBottom: 5
+  },
+  buttonStyle: {
+    marginLeft: 5,
+    marginRight: 25,
+    marginTop: 10
+  },
+});
 
-  return { email, password, first_name, last_name, zip_code, error, loading, loggedIn };
-};
-
-export default connect(mapStateToProps, {
-  firstNameChanged,
-  lastNameChanged,
-  zipCodeChanged,
-  emailChanged,
-  passwordChanged,
-  signUpUser
- })(SignUpScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreen);

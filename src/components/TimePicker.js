@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-native-datepicker';
+import moment from 'moment';
 import { View, Text } from 'react-native';
 
 
@@ -8,17 +9,17 @@ class TimePicker extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      startTime: `${new Date().getHours()}:${new Date().getMinutes()}`,
-      endTime: `${new Date().getHours()}:` +
-      `${new Date().getMinutes() + 30}`
+      startTime: this.props.selectedStartTime || `${moment(new Date()).format('HH:mm')}`,
+      endTime: this.props.selectedEndTime
+        || `${moment(new Date()).add(30, 'minutes').format('HH:mm')}`
     };
   }
 
 render() {
     return (
-      <View>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
         <View style={{ flexDirection: 'row' }}>
-          <Text style={{ marginTop: 20 }}>Start Time: </Text>
+          <Text style={{ marginTop: 20 }}>Start</Text>
           <DatePicker
             mode="time"
             customStyles={{
@@ -26,9 +27,11 @@ render() {
                 display: 'none'
               },
               dateTouchBody: {
-                width: 100,
-                height: 50,
-                marginLeft: 10
+                marginTop: 9,
+                marginLeft: 10,
+              },
+              dateInput: {
+                borderWidth: 0
               }
             }}
             style={{ width: 100 }}
@@ -42,16 +45,18 @@ render() {
           />
         </View>
         <View style={{ flexDirection: 'row' }}>
-          <Text style={{ marginTop: 20, marginRight: 9 }}>End Time:</Text>
+          <Text style={{ marginTop: 20 }}>End</Text>
             <DatePicker
             customStyles={{
               dateIcon: {
                 display: 'none'
               },
               dateTouchBody: {
-                width: 100,
-                height: 50,
+                marginTop: 9,
                 marginLeft: 10,
+              },
+              dateInput: {
+                borderWidth: 0
               }
             }}
             style={{ width: 100 }}

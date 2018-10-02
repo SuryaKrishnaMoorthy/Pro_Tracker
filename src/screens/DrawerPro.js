@@ -1,28 +1,32 @@
 import React, { Component } from 'react';
 import { Drawer } from 'native-base';
-import SideBar from '../screens/SideBar';
+import Sidebar from '../screens/Sidebar';
 import Home from './Home';
 
 class DrawerPro extends Component {
-
   closeDrawer = () => {
-    this._drawer._root.close()
+    if (this.drawer) this.drawer._root.close();
   };
 
   openDrawer = () => {
-    this._drawer._root.open()
+    if (this.drawer) this.drawer._root.open();
   };
 
   render() {
     return (
       <Drawer
-        ref={(ref) => { this._drawer = ref; }}
-        content={<SideBar navigator={this._navigator} />}
+        ref={(ref) => { this.drawer = ref; }}
+        content={<Sidebar
+          openDrawer={this.openDrawer}
+          closeDrawer={this.closeDrawer}
+          navigator={this.props.navigation}
+        />}
         onClose={() => this.closeDrawer()}
       >
       <Home
         openDrawer={this.openDrawer}
         navigation={this.props.navigation}
+        dayIndex={this.props.dayIndex}
       />
       </Drawer>
     );

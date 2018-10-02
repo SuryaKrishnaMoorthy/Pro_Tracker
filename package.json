@@ -10,21 +10,29 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "d3-scale": "^2.1.2",
     "eslint-config-rallycoding": "^3.2.0",
     "expo": "^30.0.1",
     "moment": "^2.22.2",
     "native-base": "^2.8.0",
     "react": "16.3.1",
+    "react-devtools": "^3.4.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
     "react-native-calendars": "^1.20.0",
+    "react-native-circular-progress": "^1.0.1",
     "react-native-datepicker": "^1.7.2",
     "react-native-elements": "^1.0.0-beta5",
+    "react-native-paper": "^2.0.1",
     "react-native-simple-radio-button": "^2.7.3",
+    "react-native-svg": "^7.0.3",
+    "react-native-svg-charts": "^5.2.0",
     "react-native-swipeout": "^2.3.6",
     "react-native-vector-icons": "^5.0.0",
     "react-navigation": "^2.16.0",
+    "react-navigation-material-bottom-tabs": "^0.4.0",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "rrule": "^2.5.5"
   }
 }

@@ -3,10 +3,10 @@ import axios from 'axios';
 
 const baseURL = 'http://localhost:5000/api/status';
 
-export const createOneStatusRequest = async (taskId, statusId) => {
+export const createOneStatusRequest = async (body) => {
   try {
     const token = await AsyncStorage.getItem('token');
-    const response = await axios.delete(`${baseURL}/${taskId}/${statusId}`, {
+    const response = await axios.post(`${baseURL}/`, body, {
       headers: {
         authorization: `Bearer ${token}`
       }
