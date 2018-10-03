@@ -28,19 +28,20 @@ class ListItem extends Component {
       activeRow: null
     };
   }
+
   componentDidMount() {
     this.props.getCurrentDayTasks(moment().add(this.props.dayIndex, 'day'));
   }
 
   onSwipeOpen(rowId, direction) {
     if (typeof direction !== 'undefined') {
-        this.setState({ activeRow: rowId });
+      this.setState({ activeRow: rowId });
     }
   }
 
   onSwipeClose(rowId, direction) {
     if (rowId === this.state.activeRow && typeof direction !== 'undefined') {
-        this.setState({ activeRow: null });
+      this.setState({ activeRow: null });
     }
   }
 
@@ -137,7 +138,10 @@ const styles = StyleSheet.create({
   },
   row: {
     padding: 15,
-    backgroundColor: 'skyblue',
+    backgroundColor: '#93CEC8',
+    color: '#191654',
+    fontSize: 15,
+    fontWeight: '500'
   },
   header: {
     padding: 15,

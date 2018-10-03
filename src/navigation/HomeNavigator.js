@@ -44,7 +44,7 @@ export default createMaterialBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: days[0],
       tabBarIcon: <Icon><Image source={sunday} /></Icon>,
-      tabBarColor: '#000002'
+      tabBarColor: '#17BCAE'
     }
   },
   Mon: {
@@ -56,7 +56,7 @@ export default createMaterialBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: days[1],
       tabBarIcon: <Icon><Image source={monday} /></Icon>,
-      tabBarColor: '#141414'
+      tabBarColor: '#17BCAE'
     }
   },
   Tue: {
@@ -68,7 +68,7 @@ export default createMaterialBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: days[2],
       tabBarIcon: <Icon><Image source={tuesday} /></Icon>,
-      tabBarColor: '#181817'
+      tabBarColor: '#17BCAE'
     }
   },
   Wed: {
@@ -80,7 +80,7 @@ export default createMaterialBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: days[3],
       tabBarIcon: <Icon><Image source={wednesday} /></Icon>,
-      tabBarColor: '#141414'
+      tabBarColor: '#17BCAE'
     }
   },
   Thu: {
@@ -92,7 +92,7 @@ export default createMaterialBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: days[4],
       tabBarIcon: <Icon><Image source={thursday} /></Icon>,
-      tabBarColor: '#1C1D1B'
+      tabBarColor: '#17BCAE'
     }
   },
   Fri: {
@@ -104,7 +104,7 @@ export default createMaterialBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: days[5],
       tabBarIcon: <Icon><Image source={friday} /></Icon>,
-      tabBarColor: '#000000'
+      tabBarColor: '#17BCAE'
     }
   },
   Sat: {
@@ -116,7 +116,7 @@ export default createMaterialBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: days[6],
       tabBarIcon: <Icon><Image source={saturday} /></Icon>,
-      tabBarColor: '#141414'
+      tabBarColor: '#17BCAE'
     }
   }
 }, {
@@ -124,6 +124,6 @@ export default createMaterialBottomTabNavigator({
   activeColor: '#80ff00',
   inactiveColor: '#ffffff',
   barStyle: {
-    backgroundColor: '#000000'
+    backgroundColor: '#17BCAE'
   }
 });
