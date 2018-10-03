@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
+import { ImageBackground, View } from 'react-native';
 import {
   Container,
-  Header,
   Content,
   ListItem,
   Text,
   Icon,
   Left,
   Body,
-  Button } from 'native-base';
+  Button,
+  Header, Right, Title } from 'native-base';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -17,6 +18,7 @@ import {
   getCurrentDayTasks,
   logoutUser
 } from '../actions';
+import proBackground from '../assets/pro-background.jpg';
 
 const mapStateToProps = ({ data }) => {
   return data;
@@ -32,9 +34,16 @@ class Sidebar extends Component {
   render() {
     const { navigator } = this.props;
     return (
-      <Container>
-        <Header />
-        <Content>
+
+      <Container style={{ borderWidth: 0 }}>
+        <View>
+          <ImageBackground source={proBackground} style={{ height: '100%' }}>
+            <Header>
+            <Body>
+              <Title>proTracker</Title>
+            </Body>
+          </Header>
+        <Content style={{ borderWidth: 0 }}>
           <ListItem
             icon
             onPress={() => {
@@ -146,7 +155,10 @@ class Sidebar extends Component {
             </Body>
           </ListItem>
         </Content>
-      </Container>
+    </ImageBackground>
+
+    </View>
+  </Container>
     );
   }
 }

@@ -2,7 +2,7 @@ import { AsyncStorage } from 'react-native';
 import axios from 'axios';
 import moment from 'moment';
 
-const baseURL = 'http://localhost:5000/api/tasks';
+const baseURL = 'http://127.0.0.1:5000/api/tasks';
 
 export const getCurrentDayTasksRequest = async (dateParams) => {
   const date = moment(dateParams).format('YYYY-MM-DD');

@@ -1,11 +1,23 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { Input, Button } from 'react-native-elements';
-// import Icon from 'react-native-vector-icons/FontAwesome';
+import { bindActionCreators } from 'redux';
+import { View, StyleSheet, ScrollView, ImageBackground, Alert } from 'react-native';
+import { Input, Button, Text } from 'react-native-elements';
 
-import { emailChanged, passwordChanged, loginUser } from '../actions';
+import { emailChanged, passwordChanged, loginUser, clearError } from '../actions';
 import { Spinner } from '../components/common';
+
+const mapStateToProps = ({ auth }) => {
+  const { email, password, error, loading, loggedIn } = auth;
+  return { email, password, error, loading, loggedIn };
+};
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  emailChanged,
+  passwordChanged,
+  loginUser,
+  clearError
+}, dispatch);
 
 class LoginForm extends Component {
 
@@ -33,12 +45,13 @@ class LoginForm extends Component {
 
   renderError() {
     if (this.props.error) {
-      return (
-        <View style={{ backgroundColor: 'white' }}>
-          <Text style={styles.errorTextStyle}>
-            {this.props.error}
-          </Text>
-        </View>
+      Alert.alert(
+        'Authentication Failed.',
+        ' Please try with correct credentials.',
+        [
+          { text: 'Ok', onPress: () => this.props.clearError(), style: 'cancel' },
+        ],
+        { cancelable: false }
       );
     }
   }
@@ -50,11 +63,12 @@ class LoginForm extends Component {
     return (
       <View>
         <Button
-          style={styles.buttonStyle}
+          buttonStyle={styles.button}
+          titleStyle={{ fontWeight: '700' }}
           onPress={this.onLoginButtonPress.bind(this)}
-          title='Login'
+          title='Log In'
         />
-        <Text style={styles.textStyle}> OR </Text>
+        <Text style={styles.text}> OR </Text>
       </View>
     );
   }
@@ -62,7 +76,8 @@ class LoginForm extends Component {
   renderSignUpButton() {
     return (
       <Button
-        style={styles.buttonStyle}
+        buttonStyle={styles.button}
+        titleStyle={{ fontWeight: '700' }}
         onPress={this.onSignUpButtonPress.bind(this)}
         title='Sign Up'
       />
@@ -70,103 +85,100 @@ class LoginForm extends Component {
   }
 
   render() {
+    const imageSource = { uri: 'https://images.unsplash.com/photo-1533892743580-890e5b193113?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cb2f494bb8c83e80437bdc584f8eb773&auto=format&fit=crop&w=800&q=60' };
     return (
+      <ImageBackground source={imageSource} style={{ width: '100%', height: '100%' }}>
+        <ScrollView
+          on-drag
+        >
+          <View>
+            <Text
+              style={styles.logo}
+              h1
+            > proTracker</Text>
+          </View>
+          <View style={styles.login}>
+            <Input
+              containerStyle={styles.inputContainer}
+              inputStyle={styles.input}
+              placeholder='Email'
+              placeholderTextColor='#fff'
+              leftIcon={{ type: 'font-awesome', name: 'envelope', color: '#fff' }}
+              leftIconContainerStyle={styles.leftIconContainer}
+              onChangeText={this.onEmailChange.bind(this)}
+              value={this.props.email}
+              onFocus={this.focus}
+              onBlur={this.blur}
+            />
 
-      <View style={styles.login}>
-        <Input
-          containerStyle={styles.inputStyle}
-          placeholder='Email'
-          leftIcon={{ type: 'font-awesome', name: 'envelope', color: 'grey' }}
-          leftIconContainerStyle={styles.leftIconContainerStyle}
-          onChangeText={this.onEmailChange.bind(this)}
-          value={this.props.email}
-          onFocus={this.focus}
-          onBlur={this.blur}
-        />
-
-        <Input
-          secureTextEntry
-          containerStyle={styles.inputStyle}
-          placeholder='Password'
-          leftIcon={{ type: 'font-awesome', name: 'lock', color: 'grey' }}
-          leftIconContainerStyle={styles.leftIconContainerStyle}
-          onChangeText={this.onPasswordChange.bind(this)}
-          value={this.props.password}
-          onFocus={this.focus}
-          onBlur={this.blur}
-        />
-          {this.renderError()}
-          {this.renderLoginButton()}
-          {this.renderSignUpButton()}
-      </View>
+            <Input
+              secureTextEntry
+              containerStyle={styles.inputContainer}
+              inputStyle={styles.input}
+              placeholder='Password'
+              placeholderTextColor='#fff'
+              leftIcon={{ type: 'font-awesome', name: 'lock', color: '#fff' }}
+              leftIconContainerStyle={styles.leftIconContainer}
+              onChangeText={this.onPasswordChange.bind(this)}
+              value={this.props.password}
+              onFocus={this.focus}
+              onBlur={this.blur}
+            />
+              {this.renderError()}
+              {this.renderLoginButton()}
+              {this.renderSignUpButton()}
+          </View>
+        </ScrollView>
+      </ImageBackground>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  errorTextStyle: {
+  errorText: {
+    marginBottom: '10%',
     fontSize: 20,
+    color: '#FF0033',
+    // backgroundColor: '#FFBABA',
     alignSelf: 'center',
   },
   login: {
-    alignSelf: 'stretch',
     height: '100%',
-    marginTop: '90%',
+    marginTop: '40%',
     marginLeft: '10%',
     marginRight: '10%',
     marginBottom: '10%'
   },
-  inputStyle: {
-    alignSelf: 'stretch',
+  inputContainer: {
+    // alignSelf: 'stretch',
     borderBottomColor: '#f8f8f8',
     marginLeft: '5%',
     marginBottom: '5%'
   },
-  buttonStyle: {
-    margin: 10
+  input: {
+    color: '#fff'
   },
-  textStyle: {
+  button: {
+    margin: 10,
+    borderRadius: 5,
+    backgroundColor: '#17BCAE'
+  },
+  text: {
     alignSelf: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    color: '#fff'
   },
-  leftIconContainerStyle: {
+  leftIconContainer: {
     marginLeft: '0%',
     marginRight: '5%',
+  },
+  logo: {
+    fontWeight: 'bold',
+    color: '#fff',
+    alignSelf: 'center',
+    marginTop: '30%'
   }
 });
 
-const mapStateToProps = ({ auth }) => {
-  const { email, password, error, loading, loggedIn } = auth;
-  return { email, password, error, loading, loggedIn };
-};
 
-export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser })(LoginForm);
-
-/* <Card>
-  <CardSection>
-    <Input
-      label="email"
-      placeholder="user@email.com"
-      onChangeText={this.onEmailChange.bind(this)}
-      value={this.props.email}
-    />
-  </CardSection>
-
-  <CardSection>
-    <Input
-      secureTextEntry
-      label="password"
-      placeholder="password"
-      onChangeText={this.onPasswordChange.bind(this)}
-      value={this.props.password}
-    />
-  </CardSection>
-
-  {this.renderError()}
-  <CardSection>
-    {this.renderLoginButton()}
-  </CardSection>
-  <CardSection>
-    {this.renderSignUpButton()}
-  </CardSection>
-</Card> */
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

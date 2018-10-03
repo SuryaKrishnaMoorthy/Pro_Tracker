@@ -8,6 +8,8 @@ import {
   SIGNUP_USER,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
+  SIGN_UP_USER_FAIL,
+  CLEAR_ERROR,
   LOGIN_USER,
   LOGOUT
 } from './types';
@@ -39,23 +41,31 @@ export const passwordChanged = (text) => ({
 
 export const signUpUser = (body) => {
   return async (dispatch) => {
-    dispatch({ type: SIGNUP_USER });
-    const token = await signUpRequest(body);
-    if (token) {
-      loginUserSuccess(dispatch, token);
-    } else {
-      loginUserFail(dispatch);
+    try {
+      dispatch({ type: SIGNUP_USER });
+      const token = await signUpRequest(body);
+      if (token) {
+        loginUserSuccess(dispatch, token);
+      } else {
+        signUpUserFail(dispatch);
+      }
+    } catch (e) {
+      signUpUserFail(dispatch);
     }
   };
 };
 
 export const loginUser = ({ email, password }) => {
   return async (dispatch) => {
-    dispatch({ type: LOGIN_USER });
-    const token = await loginRequest({ email, password });
-    if (token) {
-      loginUserSuccess(dispatch, token);
-    } else {
+    try {
+      dispatch({ type: LOGIN_USER });
+      const token = await loginRequest({ email, password });
+      if (token) {
+        loginUserSuccess(dispatch, token);
+      } else {
+        loginUserFail(dispatch);
+      }
+    } catch (e) {
       loginUserFail(dispatch);
     }
   };
@@ -68,6 +78,14 @@ export const logoutUser = () => {
   };
 };
 
+export const clearError = () => {
+  return async (dispatch) => {
+  dispatch({
+    type: CLEAR_ERROR
+  });
+};
+};
+
 const loginUserSuccess = (dispatch, token) => {
   dispatch({
     type: LOGIN_USER_SUCCESS,
@@ -78,5 +96,11 @@ const loginUserSuccess = (dispatch, token) => {
 const loginUserFail = (dispatch) => {
   dispatch({
     type: LOGIN_USER_FAIL
+  });
+};
+
+const signUpUserFail = (dispatch) => {
+  dispatch({
+    type: SIGN_UP_USER_FAIL
   });
 };

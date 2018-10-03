@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView, ImageBackground } from 'react-native';
 import { Header, Input, Text, ListItem } from 'react-native-elements';
 
 import { taskCategory } from '../helpers';
+import proBackground from '../assets/pro-background.jpg';
 
 class AddTask extends Component {
   constructor(props) {
@@ -18,39 +19,46 @@ class AddTask extends Component {
   render() {
     const { navigation } = this.props;
     return (
-      <View>
+      <ScrollView>
+        <View>
+        <ImageBackground source={proBackground} style={{ height: '130%' }}>
         <Header
+          backgroundColor='#43C6AC'
           leftComponent={{
             icon: 'chevron-left',
-            color: '#fff',
+            color: '#191654',
             onPress: () => navigation.navigate('HomeNavigator')
           }}
           centerComponent={{
             text: 'What would you like to track?',
-            style: { color: '#fff', fontWeight: 'bold' }
+            style: { color: '#191654', fontWeight: 'bold' }
           }}
           rightComponent={{
             icon: 'chevron-right',
-            color: '#fff',
+            color: '#191654',
             onPress: () => navigation.navigate('TaskForm', { task_name: this.state.task_name })
           }}
         />
         <Input
           placeholder='Write your task...'
+          inputStyle={styles.input}
           leftIcon={{ type: 'font-awesome', name: 'pencil' }}
           value={this.state.task_name}
           onChangeText={this.onInputChange}
         />
         <View>
-          <Text>Or choose from below..</Text>
+          <Text style={styles.text}>Or choose from below..</Text>
           {
             taskCategory.map((item, index) =>
               <ListItem
-                style={styles.container}
+                containerStyle={styles.container}
+                topDivider
+                bottomDivider
                 title={item.value}
+                titleStyle={styles.title}
                 chevron
                 bottomDivider
-                chevronColor={'black'}
+                chevronColor={'#191654'}
                 key={index}
                 onPress={() => navigation.navigate('SelectTask', {
                   task_category: item.value,
@@ -60,18 +68,33 @@ class AddTask extends Component {
             )
           }
         </View>
-      </View>
+      </ImageBackground>
+    </View>
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-
+    backgroundColor: '#93CEC8',
+    margin: 2,
   },
-  row: {
-    padding: 15,
-    backgroundColor: 'skyblue',
+  title: {
+    color: '#191654',
+    fontSize: 15,
+    fontWeight: '700'
+  },
+  input: {
+    margin: 5,
+    color: '#191654'
+  },
+  text: {
+    margin: 15,
+    fontSize: 17,
+    alignSelf: 'center',
+    color: '#191654',
+    fontWeight: '500'
   }
 });
 

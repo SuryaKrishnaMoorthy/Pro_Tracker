@@ -23,6 +23,7 @@
     "react-native-datepicker": "^1.7.2",
     "react-native-elements": "^1.0.0-beta5",
     "react-native-paper": "^2.0.1",
+    "react-native-parallax-scroll-view": "^0.21.3",
     "react-native-simple-radio-button": "^2.7.3",
     "react-native-svg": "^7.0.3",
     "react-native-svg-charts": "^5.2.0",
