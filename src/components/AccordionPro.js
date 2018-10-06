@@ -1,25 +1,31 @@
 import React, { Component } from 'react';
 import { Container, Content, Accordion } from 'native-base';
-import CircularProgressPro from './CircularProgressPro';
-//import BarChartPro from './BarChartPro';
+import { StyleSheet } from 'react-native';
 
-const dataArray = [
-  { title: 'Progress', content: <CircularProgressPro style={{ width: '100%' }} /> }
-  //, { title: 'Bar Chart', content: <BarChartPro /> },
-];
 class AccordionPro extends Component {
   render() {
     return (
       <Container>
         <Content padder >
           <Accordion
-            dataArray={dataArray}
-            expanded={0}
+            headerStyle={styles.headerStyle}
+            contentStyle={styles.contentStyle}
+            dataArray={this.props.dataArray}
+            expanded={this.props.index}
           />
         </Content>
       </Container>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  headerStyle: {
+    backgroundColor: '#43C6AC',
+  },
+  contentStyle: {
+    color: '#191654',
+  }
+});
 
 export { AccordionPro };

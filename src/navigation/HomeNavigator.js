@@ -12,7 +12,7 @@ const thursday = require('../assets/t.png');
 const friday = require('../assets/f.png');
 const saturday = require('../assets/s.png');
 
-const days = ['Sat', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sun'];
+const days = ['  Sun', '  Mon', '  Tue', '  Wed', '  Thu', '  Fri', '  Sat'];
 
 const presentDayIndex = new Date().getDay();
 days[presentDayIndex] = 'Today';

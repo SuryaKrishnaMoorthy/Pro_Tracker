@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { FlatList, Text, StyleSheet, TouchableHighlight, Alert } from 'react-native';
+import { FlatList, Text, StyleSheet, TouchableHighlight, Alert, View } from 'react-native';
 import { connect } from 'react-redux';
 import Swipeout from 'react-native-swipeout';
 import { bindActionCreators } from 'redux';
+import { Icon } from 'react-native-elements';
 import moment from 'moment';
 
 import { Separator } from './common';
@@ -102,15 +103,31 @@ class ListItem extends Component {
         onClose={(secId, rowId, direction) => this.onSwipeClose(rowId, direction)}
       >
       <TouchableHighlight>
-        <Text
-          key={item.id}
-          style={styles.row}
-          onPress={() => this.props.navigation('TaskView', {
-            id: item.id
-          })}
-        >
-          {item.task_name}
-        </Text>
+        <View style={styles.container}>
+          {
+            item.icon_name
+            ?
+            <Icon
+              containerStyle={styles.iconContainerStyle}
+              name={item.icon_name}
+              type={item.icon_type ? item.icon_type : ''}
+              color={item.icon_color ? item.icon_color : '#000000'}
+              onPress={() => this.props.navigation('TaskView', {
+                id: item.id
+              })}
+            />
+            : ''
+          }
+          <Text
+            key={item.id}
+            style={styles.row}
+            onPress={() => this.props.navigation('TaskView', {
+              id: item.id
+            })}
+          >
+            {item.task_name}
+          </Text>
+        </View>
       </TouchableHighlight>
       <Separator />
     </Swipeout>
@@ -120,7 +137,6 @@ class ListItem extends Component {
   render() {
     return (
       <FlatList
-      style={styles.container}
       data={this.props.tasks}
       renderItem={this.renderItem}
       keyExtractor={extractKey}
@@ -131,10 +147,13 @@ class ListItem extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    // backgroundColor: 'red',
-    // width: '100%',
-    // height: '100%'
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#93CEC8'
+  },
+  iconContainerStyle: {
+    marginLeft: '3%'
   },
   row: {
     padding: 15,

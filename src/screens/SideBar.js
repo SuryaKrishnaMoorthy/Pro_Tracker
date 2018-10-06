@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ImageBackground, View } from 'react-native';
+import { ImageBackground, View, Alert } from 'react-native';
 import {
   Container,
   Content,
@@ -9,7 +9,8 @@ import {
   Left,
   Body,
   Button,
-  Header, Right, Title } from 'native-base';
+  Header,
+  Title } from 'native-base';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -31,134 +32,155 @@ const mapDispatchToProps = dispatch => bindActionCreators({
  }, dispatch);
 
 class Sidebar extends Component {
+
+  handleDelete() {
+    const { navigator } = this.props;
+
+    Alert.alert(
+      'Do you want to delete this account?',
+      'User will be deleted permanently',
+      [
+        { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+        { text: 'Delete',
+          onPress: () => {
+            this.props.deleteUser();
+            navigator.navigate('AuthNavigator');
+          },
+          style: 'destructive'
+        },
+      ],
+      { cancelable: false }
+    );
+  }
+
   render() {
     const { navigator } = this.props;
     return (
-
       <Container style={{ borderWidth: 0 }}>
         <View>
           <ImageBackground source={proBackground} style={{ height: '100%' }}>
             <Header>
-            <Body>
-              <Title>proTracker</Title>
-            </Body>
-          </Header>
-        <Content style={{ borderWidth: 0 }}>
-          <ListItem
-            icon
-            onPress={() => {
-              this.props.getCurrentDayTasks();
-              navigator.navigate('HomeNavigator');
-              this.props.closeDrawer();
-            }}
-          >
-            <Left>
-              <Button style={{ backgroundColor: '#FF9501' }}>
-                <Icon active name="home" />
-              </Button>
-            </Left>
-            <Body>
-              <Text>Home</Text>
-            </Body>
-          </ListItem>
-          <ListItem
-            icon
-            onPress={() => {
-              this.props.getTasksByType('personal');
-              navigator.navigate('HomeNavigator');
-              this.props.closeDrawer();
-            }}
-          >
-            <Left>
-              <Button style={{ backgroundColor: '#007AFF' }}>
-                <Icon active name='list' />
-              </Button>
-            </Left>
-            <Body>
-              <Text>Personal</Text>
-            </Body>
-          </ListItem>
-          <ListItem
-            icon
-            onPress={() => {
-              this.props.getTasksByType('professional');
-              navigator.navigate('HomeNavigator');
-              this.props.closeDrawer();
-            }}
-          >
-            <Left>
-              <Button style={{ backgroundColor: '#007AFF' }}>
-                <Icon active name="list" />
-              </Button>
-            </Left>
-            <Body>
-              <Text>Professional</Text>
-            </Body>
-          </ListItem>
-        </Content>
-        <Content>
-          <ListItem icon>
-            <Left>
-              <Button style={{ backgroundColor: '#FF9501' }}>
-                <Icon active name="home" />
-              </Button>
-            </Left>
-            <Body>
-              <Text>Notifications</Text>
-            </Body>
-          </ListItem>
-          <ListItem icon>
-            <Left>
-              <Button style={{ backgroundColor: '#007AFF' }}>
-                <Icon active name='people' />
-              </Button>
-            </Left>
-            <Body>
-              <Text>Invite Friends</Text>
-            </Body>
-          </ListItem>
-          <ListItem icon>
-            <Left>
-              <Button style={{ backgroundColor: '#007AFF' }}>
-                <Icon active name="send" />
-              </Button>
-            </Left>
-            <Body>
-              <Text>Send Feedback</Text>
-            </Body>
-          </ListItem>
-          <ListItem
-            icon
-            onPress={() => {
-              console.log('Sidebar: Logout');
-              this.props.logoutUser();
-              navigator.navigate('Login');
-            }}
-          >
-            <Left>
-              <Button style={{ backgroundColor: '#007AFF' }}>
-                <Icon active name="home" />
-              </Button>
-            </Left>
-            <Body>
-              <Text>Logout</Text>
-            </Body>
-          </ListItem>
-          <ListItem icon>
-            <Left>
-              <Button style={{ backgroundColor: '#007AFF' }}>
-                <Icon active name="home" />
-              </Button>
-            </Left>
-            <Body>
-              <Text>Delete Account?</Text>
-            </Body>
-          </ListItem>
-        </Content>
-    </ImageBackground>
-
-    </View>
-  </Container>
+              <Body>
+                <Title>proTracker</Title>
+              </Body>
+            </Header>
+            <Content style={{ borderWidth: 0 }}>
+              <ListItem
+                icon
+                onPress={() => {
+                  this.props.getCurrentDayTasks();
+                  navigator.navigate('HomeNavigator');
+                  this.props.closeDrawer();
+                }}
+              >
+                <Left>
+                  <Button style={{ backgroundColor: '#FF9501' }}>
+                    <Icon active name="home" />
+                  </Button>
+                </Left>
+                <Body>
+                  <Text>Home</Text>
+                </Body>
+              </ListItem>
+              <ListItem
+                icon
+                onPress={() => {
+                  this.props.getTasksByType('personal');
+                  navigator.navigate('HomeNavigator');
+                  this.props.closeDrawer();
+                }}
+              >
+                <Left>
+                  <Button style={{ backgroundColor: '#007AFF' }}>
+                    <Icon active name='list' />
+                  </Button>
+                </Left>
+                <Body>
+                  <Text>Personal</Text>
+                </Body>
+              </ListItem>
+              <ListItem
+                icon
+                onPress={() => {
+                  this.props.getTasksByType('professional');
+                  navigator.navigate('HomeNavigator');
+                  this.props.closeDrawer();
+                }}
+              >
+                <Left>
+                  <Button style={{ backgroundColor: '#007AFF' }}>
+                    <Icon active name="list" />
+                  </Button>
+                </Left>
+                <Body>
+                  <Text>Professional</Text>
+                </Body>
+              </ListItem>
+            </Content>
+            <Content>
+              <ListItem icon>
+                <Left>
+                  <Button style={{ backgroundColor: '#FF9501' }}>
+                    <Icon active name="home" />
+                  </Button>
+                </Left>
+                <Body>
+                  <Text>Notifications</Text>
+                </Body>
+              </ListItem>
+              <ListItem icon>
+                <Left>
+                  <Button style={{ backgroundColor: '#007AFF' }}>
+                    <Icon active name='people' />
+                  </Button>
+                </Left>
+                <Body>
+                  <Text>Invite Friends</Text>
+                </Body>
+              </ListItem>
+              <ListItem icon>
+                <Left>
+                  <Button style={{ backgroundColor: '#007AFF' }}>
+                    <Icon active name="send" />
+                  </Button>
+                </Left>
+                <Body>
+                  <Text>Send Feedback</Text>
+                </Body>
+              </ListItem>
+              <ListItem
+                icon
+                onPress={() => {
+                  this.props.logoutUser();
+                  navigator.navigate('Login');
+                }}
+              >
+                <Left>
+                  <Button style={{ backgroundColor: '#007AFF' }}>
+                    <Icon active name="home" />
+                  </Button>
+                </Left>
+                <Body>
+                  <Text>Logout</Text>
+                </Body>
+              </ListItem>
+              <ListItem
+                icon
+                onPress={() => this.handleDelete()}
+              >
+                <Left>
+                  <Button style={{ backgroundColor: '#007AFF' }}>
+                    <Icon active name="home" />
+                  </Button>
+                </Left>
+                <Body>
+                  <Text>Delete Account?</Text>
+                </Body>
+              </ListItem>
+            </Content>
+          </ImageBackground>
+        </View>
+      </Container>
     );
   }
 }

@@ -9,8 +9,8 @@ import { Drawer } from 'native-base';
 import { AccordionPro } from '../components';
 import Sidebar from './Sidebar';
 import { getOneTask, deleteOneStatus, createOneStatus } from '../actions';
-//import BarChartPro from '../components/BarChartPro';
-
+import BarChartPro from '../components/BarChartPro';
+import CircularProgressPro from '../components/CircularProgressPro';
 
 const { RRule } = require('rrule');
 
@@ -81,7 +81,10 @@ class TaskView extends Component {
 
   render() {
     const { navigation } = this.props;
-
+    const dataArray = [
+      { title: 'Progress', content: <CircularProgressPro style={{ width: '100%' }} /> },
+      { title: 'Bar Chart', content: <BarChartPro style={{ width: '100%' }} /> },
+    ];
     return (
       <Drawer
         ref={(ref) => { this.drawer = ref; }}
@@ -94,18 +97,19 @@ class TaskView extends Component {
       >
       <View>
         <Header
+          backgroundColor='#43C6AC'
           leftComponent={{
             icon: 'menu',
-            color: '#fff',
+            color: '#191654',
             onPress: () => this.openDrawer()
           }}
           centerComponent={{
             text: `${this.props.task.task_name}`,
-            style: { color: '#fff', fontWeight: 'bold'
+            style: { color: '#191654', fontWeight: 'bold'
           } }}
           rightComponent={{
             icon: 'home',
-            color: '#fff',
+            color: '#191654',
             onPress: () => navigation.navigate('HomeNavigator')
           }}
         />
@@ -129,7 +133,10 @@ class TaskView extends Component {
             this.props.task.r_rule ? RRule.fromString(this.props.task.r_rule).toText() : ''}
         </Text>
       </View>
-      <AccordionPro />
+      <AccordionPro
+        dataArray={dataArray}
+        index={0}
+      />
       {/* <BarChartPro /> */}
     </Drawer>
     );

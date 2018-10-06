@@ -6,3 +6,4 @@ export * from './Input';
 export * from './Spinner';
 export * from './Confirm';
 export * from './Separator';
+export * from './IconPro';

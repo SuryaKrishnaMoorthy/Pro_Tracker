@@ -1,4 +1,4 @@
-import { signUpRequest, loginRequest, logoutRequest } from '../requests';
+import { signUpRequest, loginRequest, logoutRequest, deleteUserRequest } from '../requests';
 import {
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
@@ -11,7 +11,8 @@ import {
   SIGN_UP_USER_FAIL,
   CLEAR_ERROR,
   LOGIN_USER,
-  LOGOUT
+  LOGOUT,
+  DELETE_USER
 } from './types';
 
 export const firstNameChanged = (text) => ({
@@ -75,6 +76,13 @@ export const logoutUser = () => {
   return async (dispatch) => {
     await logoutRequest();
     dispatch({ type: LOGOUT });
+  };
+};
+
+export const deleteUser = () => {
+  return async (dispatch) => {
+    await deleteUserRequest();
+    dispatch({ type: DELETE_USER });
   };
 };
 

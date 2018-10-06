@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-native-datepicker';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import moment from 'moment';
 
 class DatePickerPro extends Component {
@@ -16,7 +16,7 @@ render() {
     return (
       <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
         <View style={{ flexDirection: 'row' }}>
-          <Text style={{ marginTop: 20 }}>{this.props.dateText} </Text>
+          <Text style={styles.textStyle}>{this.props.dateText} </Text>
           <DatePicker
             mode="date"
             customStyles={{
@@ -37,11 +37,7 @@ render() {
             cancelBtnText="Cancel"
             onDateChange={(date) => {
               this.setState({ date });
-              if (this.props.dateType === 'start') {
-                this.props.updateDate(date);
-              } else {
-                this.props.updateDate(date);
-              }
+              this.props.updateDate(date);
             }}
           />
         </View>
@@ -49,5 +45,13 @@ render() {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  textStyle: {
+    marginTop: 20,
+    color: '#191654',
+    fontWeight: 'bold'
+  }
+});
 
 export { DatePickerPro };

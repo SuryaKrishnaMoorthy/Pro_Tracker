@@ -1,0 +1,131 @@
+{
+  "selection": [
+    {
+      "order": 3,
+      "name": "iconfinder-icon"
+    },
+    {
+      "order": 0,
+      "name": "iconfinder-icon"
+    }
+  ],
+  "metadata": {
+    "name": "Untitled Set",
+    "importSize": {
+      "width": 580,
+      "height": 400
+    },
+    "iconsHash": 437525697
+  },
+  "height": 1024,
+  "prevSize": 32,
+  "icons": [
+    {
+      "paths": [
+        "M-2.56-2.56h1489.92v1029.12h-1489.92v-1029.12z",
+        "M1107.2 501.56c0 221.267-188.542 400.64-421.12 400.64s-421.12-179.373-421.12-400.64c0-221.267 188.542-400.64 421.12-400.64s421.12 179.373 421.12 400.64z"
+      ],
+      "attrs": [
+        {
+          "fill": "rgb(255, 255, 255)"
+        },
+        {
+          "fill": "rgb(39, 34, 81)"
+        }
+      ],
+      "width": 1485,
+      "isMulticolor": true,
+      "grid": 0,
+      "tags": [
+        "iconfinder-icon"
+      ],
+      "colorPermutations": {
+        "25525525513934811": [
+          {
+            "f": 1
+          },
+          {
+            "f": 0
+          }
+        ]
+      }
+    },
+    {
+      "paths": [
+        "M-2.56-2.56h1489.92v1029.12h-1489.92v-1029.12z",
+        "M1107.2 501.56c0 221.267-188.542 400.64-421.12 400.64s-421.12-179.373-421.12-400.64c0-221.267 188.542-400.64 421.12-400.64s421.12 179.373 421.12 400.64z"
+      ],
+      "attrs": [
+        {
+          "fill": "rgb(255, 255, 255)"
+        },
+        {
+          "fill": "rgb(39, 34, 81)"
+        }
+      ],
+      "width": 1485,
+      "isMulticolor": true,
+      "grid": 0,
+      "tags": [
+        "iconfinder-icon"
+      ],
+      "colorPermutations": {
+        "25525525513934811": [
+          {
+            "f": 1
+          },
+          {
+            "f": 0
+          }
+        ]
+      }
+    }
+  ],
+  "colorThemes": [
+    [
+      [
+        39,
+        34,
+        81,
+        1
+      ],
+      [
+        255,
+        255,
+        255,
+        1
+      ]
+    ]
+  ],
+  "colorThemeIdx": 0,
+  "preferences": {
+    "showGlyphs": true,
+    "showCodes": true,
+    "showQuickUse": true,
+    "showQuickUse2": true,
+    "showSVGs": true,
+    "fontPref": {
+      "prefix": "icon-",
+      "metadata": {
+        "fontFamily": "icomoon"
+      },
+      "metrics": {
+        "emSize": 1024,
+        "baseline": 6.25,
+        "whitespace": 50
+      },
+      "embed": false
+    },
+    "imagePref": {
+      "prefix": "icon-",
+      "png": true,
+      "useClassSelector": true,
+      "color": 0,
+      "bgColor": 16777215,
+      "name": "icomoon",
+      "classSelector": ".icon"
+    },
+    "historySize": 50
+  },
+  "IcoMoonType": "icon-set"
+}

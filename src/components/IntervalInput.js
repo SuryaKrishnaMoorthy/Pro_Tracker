@@ -16,8 +16,8 @@ class IntervalInput extends Component {
       <View style={styles.container}>
         {
           this.props.frequency !== 'MONTHLY'
-          ? <Text>Recur every</Text>
-         : <Text>On every</Text>
+          ? <Text style={styles.textStyle}>Recur every</Text>
+         : <Text style={styles.textStyle}>Of every</Text>
         }
         <View>
           <Input
@@ -34,22 +34,22 @@ class IntervalInput extends Component {
         </View>
         {
           this.props.frequency === 'DAILY'
-          ? <Text>day(s)</Text>
+          ? <Text style={styles.textStyle}>day(s)</Text>
           : ''
         }
         {
           this.props.frequency === 'WEEKLY'
-          ? <Text>week(s)</Text>
+          ? <Text style={styles.textStyle}>week(s)</Text>
          : ''
         }
         {
           this.props.frequency === 'MONTHLY'
-          ? <Text>month(s)</Text>
+          ? <Text style={styles.textStyle}>month(s)</Text>
          : ''
         }
         {
           this.props.frequency === 'YEARLY'
-          ? <Text>year(s)</Text>
+          ? <Text style={styles.textStyle}>year(s)</Text>
           : ''
         }
       </View>
@@ -60,11 +60,18 @@ class IntervalInput extends Component {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    width: 100
+    width: '100%',
+    justifyContent: 'center'
   },
   input: {
     fontSize: 15,
-    height: 15
+    height: 15,
+    paddingLeft: 0,
+    color: '#191654',
+  },
+  textStyle: {
+    color: '#191654',
+    fontWeight: 'bold'
   }
 });
 

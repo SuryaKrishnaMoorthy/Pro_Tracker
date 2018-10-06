@@ -10,6 +10,7 @@ export const SIGN_UP_USER_FAIL = 'signup_user_fail';
 export const CLEAR_ERROR = 'clear_error';
 export const LOGIN_USER = 'login_user';
 export const LOGOUT = 'logout';
+export const DELETE_USER = 'delete_user';
 
 export const GET_CURRENT_DAY_TASKS = 'get_current_day_tasks';
 export const GET_TASKS_BY_TYPE = 'get_tasks_by_type';
@@ -20,3 +21,5 @@ export const DELETE_ONE_TASK = 'delete_one_task';
 
 export const CREATE_ONE_STATUS = 'create_one_status';
 export const DELETE_ONE_STATUS = 'delete_one_status';
+
+export const GET_BADGES = 'get_badges';

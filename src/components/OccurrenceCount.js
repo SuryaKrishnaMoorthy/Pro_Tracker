@@ -13,8 +13,8 @@ class OccurrenceCount extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text>End after</Text>
+      <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+        <Text style={styles.textStyle}>End after</Text>
         <View>
           <Input
             inputContainerStyle={{ width: 30 }}
@@ -28,25 +28,22 @@ class OccurrenceCount extends Component {
             value={this.state.occurrences.toString()}
           />
         </View>
-        <Text>occurrences</Text>
+        <Text style={styles.textStyle}>occurrences</Text>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    width: '48%',
-    marginTop: '5%',
-    borderRightWidth: 0.7,
-    borderColor: 'black',
-    paddingRight: 10
-  },
   input: {
     fontSize: 15,
     height: 15,
-    paddingLeft: 0
+    paddingLeft: 0,
+    color: '#191654',
+  },
+  textStyle: {
+    color: '#191654',
+    fontWeight: 'bold'
   }
 });
 

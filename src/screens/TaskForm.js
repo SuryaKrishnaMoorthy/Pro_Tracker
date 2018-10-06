@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ScrollView, View, Text, StyleSheet } from 'react-native';
-import { Header, Input, Icon, Divider } from 'react-native-elements';
+import { ScrollView, View, StyleSheet, Text, TouchableHighlight } from 'react-native';
+import { Header, Input, Divider, ButtonGroup, Icon } from 'react-native-elements';
 import moment from 'moment';
 
 import pickerValues from '../helpers/data';
@@ -14,8 +14,7 @@ import {
   TimePicker,
   DatePickerPro,
   PickerPro,
-  OccurrenceCount
-} from '../components';
+  OccurrenceCount } from '../components';
 import { createOneTask } from '../actions';
 
 const { RRule } = require('rrule');
@@ -33,6 +32,10 @@ class TaskForm extends Component {
     super(props);
     this.state = {
       task_name: this.props.navigation.getParam('task_name'),
+      task_type: 'personal',
+      icon_name: '',
+      icon_color: '#000000',
+      icon_type: '',
       radioProps: [
         { label: 'Daily', value: 'DAILY' },
         { label: 'Weekly', value: 'WEEKLY' },
@@ -43,17 +46,23 @@ class TaskForm extends Component {
       interval: 1,
       start_time: `${moment(new Date()).format('HH:mm')}`,
       end_time: `${moment(new Date()).add(30, 'minutes').format('HH:mm')}`,
+      event_type: 'Single Event',
       start_date: moment(new Date()).format('YYYY-MM-DD'),
       end_date: moment(new Date()).format('YYYY-MM-DD'),
       occurrences: 0,
       byDay: '',
-      pickerValue: '31'
+      pickerValue: '31',
+      iconExpanded: false,
     };
   }
 
   onSubmit = () => {
     const {
       task_name,
+      task_type,
+      icon_name,
+      icon_color,
+      icon_type,
       frequency,
       interval,
       start_time,
@@ -89,7 +98,10 @@ class TaskForm extends Component {
 
     const body = {
       task_name,
-      task_type: 'personal',
+      task_type,
+      icon_name,
+      icon_color,
+      icon_type,
       location: '',
       status: 'created',
       r_rule,
@@ -105,6 +117,15 @@ class TaskForm extends Component {
 
   onInputChange = (text) => {
     this.setState({ task_name: text });
+  }
+
+  onTaskTypeChange = (value) => {
+    this.setState({ task_type: value });
+    console.log(this.state);
+  }
+
+  onEventTypeChange = (value) => {
+    this.setState({ event_type: value });
   }
 
   updateFrequency = (frequency) => {
@@ -128,7 +149,7 @@ class TaskForm extends Component {
   }
 
   updateEndDate = (end_date) => {
-    this.setState({ end_date });
+    this.setState({ end_date, occurrences: 0 });
   }
 
   updateOccurrences = (occurrences) => {
@@ -143,45 +164,243 @@ class TaskForm extends Component {
     this.setState({ pickerValue });
   }
 
+  expandIconView = () => {
+    this.setState({ iconExpanded: !this.state.iconExpanded });
+  }
+
+  selectIcon = (icon_name, icon_type = '') => {
+    this.setState({ icon_name, icon_type, iconExpanded: !this.state.iconExpanded });
+  }
+
+  selectColor = (icon_color) => {
+    this.setState({ icon_color });
+  }
+
   render() {
       const { navigation } = this.props;
+      const chooseIcon = () =>
+        <View style={styles.chooseIcon}>
+          <View>
+            <Text style={styles.chooseIconText}>Choose an icon: </Text>
+          </View>
+          <View>
+            { this.state.icon_name && this.state.icon_color
+              ?
+              <Icon
+                name={this.state.icon_name}
+                color={this.state.icon_color}
+                type={this.state.icon_type}
+              />
+              : ''
+            }
+          </View>
+          <View>
+            { !this.state.iconExpanded
+              ?
+              <Icon
+                name='expand-more'
+              />
+              :
+              <Icon
+                name='expand-less'
+              />
+            }
+          </View>
+        </View>;
 
       return (
-        <ScrollView>
+        <View>
           <Header
+            backgroundColor='#43C6AC'
             leftComponent={{
               icon: 'chevron-left',
-              color: '#fff',
+              color: '#191654',
               onPress: () => navigation.navigate('AddTask')
             }}
             centerComponent={{
               text: 'Let\'s get your task created!',
-              style: { color: '#fff', fontWeight: 'bold' }
+              style: { color: '#191654', fontWeight: 'bold' }
             }}
             rightComponent={{
               icon: 'done',
-              color: '#fff',
+              color: '#191654',
               onPress: () => {
                 this.onSubmit();
                 navigation.navigate('HomeNavigator');
               }
             }}
           />
+          <ScrollView>
           <Input
             placeholder='Write your task...'
             leftIcon={{ type: 'font-awesome', name: 'pencil' }}
+            inputStyle={styles.input}
             value={this.state.task_name}
             onChangeText={this.onInputChange}
           />
-          <ButtonGroupPro />
-          <Text>
-            Choose an icon:
-            <Icon
-              name='chevron-circle-down'
-              type='font-awesome'
-              onPress={() => console.log('hello')}
-            />
-          </Text>
+          <ButtonGroupPro
+            buttonValues={['Personal', 'Professional']}
+            onButtonValueChange={this.onTaskTypeChange}
+          />
+          <ButtonGroup
+            buttons={[{ element: chooseIcon }]}
+            containerStyle={{ backgroundColor: '#43C6AC' }}
+            onPress={this.expandIconView}
+          />
+          { this.state.iconExpanded
+            ?
+            <View>
+              <View style={styles.icons}>
+                <TouchableHighlight onPress={() => this.selectColor('#98CE00')}>
+                  <View
+                    style={styles.circleShapeGreen}
+                  />
+                </TouchableHighlight>
+                <TouchableHighlight onPress={() => this.selectColor('#E83F6F')}>
+                  <View
+                    style={styles.circleShapeMagenta}
+                  />
+                </TouchableHighlight>
+                <TouchableHighlight onPress={() => this.selectColor('#FFD65C')}>
+                <View
+                  style={styles.circleShapeYellow}
+                />
+                </TouchableHighlight>
+                <TouchableHighlight onPress={() => this.selectColor('#FFFFFF')}>
+                <View
+                  style={styles.circleShapeWhite}
+                />
+                </TouchableHighlight>
+                <TouchableHighlight onPress={() => this.selectColor('#000000')}>
+                <View
+                  style={styles.circleShapeBlack}
+                />
+                </TouchableHighlight>
+                <TouchableHighlight onPress={() => this.selectColor('#800319')}>
+                <View
+                  style={styles.circleShapeRed}
+                />
+                </TouchableHighlight>
+              </View>
+              <View style={styles.icons}>
+                <Icon
+                  name='home'
+                  color={this.state.icon_color}
+                  onPress={() => this.selectIcon('home')}
+                />
+                <Icon
+                  name='graduation-cap'
+                  type='font-awesome'
+                  color={this.state.icon_color}
+                  onPress={() => this.selectIcon('graduation-cap', 'font-awesome')}
+                />
+                <Icon
+                  name='gift'
+                  type='font-awesome'
+                  color={this.state.icon_color}
+                  onPress={() => this.selectIcon('gift', 'font-awesome')}
+                />
+                <Icon
+                  name='fire'
+                  type='font-awesome'
+                  color={this.state.icon_color}
+                  onPress={() => this.selectIcon('fire', 'font-awesome')}
+                />
+                <Icon
+                  name='flask'
+                  type='font-awesome'
+                  color={this.state.icon_color}
+                  onPress={() => this.selectIcon('flask', 'font-awesome')}
+                />
+              </View>
+              <View style={styles.icons}>
+                <Icon
+                  name='build'
+                  color={this.state.icon_color}
+                  onPress={() => this.selectIcon('build')}
+                />
+                <Icon
+                  name='favorite'
+                  color={this.state.icon_color}
+                  onPress={() => this.selectIcon('favorite')}
+                />
+                <Icon
+                  name='flight'
+                  color={this.state.icon_color}
+                  onPress={() => this.selectIcon('flight')}
+                />
+                <Icon
+                  name='cake'
+                  color={this.state.icon_color}
+                  onPress={() => this.selectIcon('cake')}
+                />
+                <Icon
+                  name='mail'
+                  color={this.state.icon_color}
+                  onPress={() => this.selectIcon('mail')}
+                />
+              </View>
+              <View style={styles.icons}>
+                <Icon
+                  name='home'
+                  color={this.state.icon_color}
+                  onPress={() => this.selectIcon('home')}
+                />
+                <Icon
+                  name='graduation-cap'
+                  type='font-awesome'
+                  color={this.state.icon_color}
+                  onPress={() => this.selectIcon('graduation-cap', 'font-awesome')}
+                />
+                <Icon
+                  name='gift'
+                  type='font-awesome'
+                  color={this.state.icon_color}
+                  onPress={() => this.selectIcon('gift', 'font-awesome')}
+                />
+                <Icon
+                  name='fire'
+                  type='font-awesome'
+                  color={this.state.icon_color}
+                  onPress={() => this.selectIcon('fire', 'font-awesome')}
+                />
+                <Icon
+                  name='flask'
+                  type='font-awesome'
+                  color={this.state.icon_color}
+                  onPress={() => this.selectIcon('flask', 'font-awesome')}
+                />
+              </View>
+              <View style={styles.icons}>
+                <Icon
+                  name='build'
+                  color={this.state.icon_color}
+                  onPress={() => this.selectIcon('build')}
+                />
+                <Icon
+                  name='favorite'
+                  color={this.state.icon_color}
+                  onPress={() => this.selectIcon('favorite')}
+                />
+                <Icon
+                  name='flight'
+                  color={this.state.icon_color}
+                  onPress={() => this.selectIcon('flight')}
+                />
+                <Icon
+                  name='cake'
+                  color={this.state.icon_color}
+                  onPress={() => this.selectIcon('cake')}
+                />
+                <Icon
+                  name='pool'
+                  color={this.state.icon_color}
+                  onPress={() => this.selectIcon('pool')}
+                />
+              </View>
+            </View>
+            : ''
+          }
           <View>
             <TimePicker
               updateTime={this.updateTime}
@@ -189,51 +408,73 @@ class TaskForm extends Component {
           </View>
           <Divider style={{ marginTop: 10, marginBottom: 10 }} />
           <View>
-            <RadioButtonPro
-              radioProps={this.state.radioProps}
-              updateFrequency={this.updateFrequency}
+            <ButtonGroupPro
+              buttonValues={['Single Event', 'Repeated Events']}
+              onButtonValueChange={this.onEventTypeChange}
             />
           </View>
           <Divider style={{ marginTop: 10, marginBottom: 10 }} />
-          { this.state.frequency === 'DAILY' ?
-          (<View>
-            <IntervalInput
-              frequency={this.state.frequency}
-              dailyRecur={this.state.interval}
-              updateInterval={this.updateInterval}
-            />
-          </View>) : ''
+          { this.state.event_type === 'Repeated Events'
+            ?
+              (<View>
+                <View>
+                  <RadioButtonPro
+                    radioProps={this.state.radioProps}
+                    updateFrequency={this.updateFrequency}
+                  />
+                </View>
+                <Divider style={{ marginTop: 10, marginBottom: 10 }} />
+                { this.state.frequency === 'DAILY'
+                  ?
+                    (<View>
+                      <IntervalInput
+                        frequency={this.state.frequency}
+                        dailyRecur={this.state.interval}
+                        updateInterval={this.updateInterval}
+                      />
+                    </View>)
+                  : ''
+                }
+                { this.state.frequency === 'WEEKLY'
+                  ?
+                    (<View>
+                      <View>
+                        <CheckBoxPro updateByDay={this.updateByDay} />
+                      </View>
+                      <Divider style={{ marginTop: 10, marginBottom: 10 }} />
+                      <IntervalInput
+                        frequency={this.state.frequency}
+                        dailyRecur={this.state.interval}
+                        updateInterval={this.updateInterval}
+                      />
+                    </View>)
+                  : ''
+                }
+                { this.state.frequency === 'MONTHLY'
+                  ?
+                    (<View flex center>
+                      <View style={styles.monthlyStyle}>
+                        <View style={styles.recurTextStyle}>
+                          <Text style={styles.textStyle}>Recur</Text>
+                        </View>
+                        <PickerPro
+                          pickerValues={pickerValues}
+                          pickerValueChange={this.pickerValueChange}
+                        />
+                        <IntervalInput
+                          frequency={this.state.frequency}
+                          dailyRecur={this.state.interval}
+                          updateInterval={this.updateInterval}
+                        />
+                      </View>
+                    </View>)
+                  : ''
+                }
+                <Divider style={{ marginTop: 10, marginBottom: 10 }} />
+              </View>)
+            : ''
           }
-          { this.state.frequency === 'WEEKLY' ?
-          (<View>
-            <View style={styles.checkboxContainer}>
-              <CheckBoxPro updateByDay={this.updateByDay} />
-            </View>
-            <Divider style={{ marginTop: 10, marginBottom: 10 }} />
-            <IntervalInput
-              frequency={this.state.frequency}
-              dailyRecur={this.state.interval}
-              updateInterval={this.updateInterval}
-            />
-          </View>) : ''
-          }
-          { this.state.frequency === 'MONTHLY' ?
-            (<View>
-              <View>
-                <PickerPro
-                  pickerValues={pickerValues}
-                  pickerValueChange={this.pickerValueChange}
-                />
-                <IntervalInput
-                  frequency={this.state.frequency}
-                  dailyRecur={this.state.interval}
-                  updateInterval={this.updateInterval}
-                />
-              </View>
-            </View>) : ''
-          }
-          <Divider style={{ marginTop: 10, marginBottom: 10 }} />
-          <View style={{ flexDirection: 'row' }}>
+          <View>
             <DatePickerPro
               dateType={'start'}
               dateText={'Start Date'}
@@ -241,26 +482,116 @@ class TaskForm extends Component {
             />
           </View>
           <Divider style={{ marginTop: 10, marginBottom: 10 }} />
-          <View style={{ flexDirection: 'row' }}>
-            <OccurrenceCount
-              updateOccurrences={this.updateOccurrences}
-            />
+          <View>
+            { this.state.event_type === 'Repeated Events'
+              ?
+              <View>
+                <View>
+                  <OccurrenceCount
+                    updateOccurrences={this.updateOccurrences}
+                  />
+                </View>
+                <View style={styles.recurTextStyle}>
+                  <Text style={styles.endTextStyle}>
+                    --------OR--------
+                  </Text>
+                </View>
+              </View>
+              : ''
+            }
             <DatePickerPro
               dateType={'end'}
               dateText={'End Date'}
               updateDate={this.updateEndDate}
             />
           </View>
+          <Divider style={{ marginTop: 10, marginBottom: 10 }} />
         </ScrollView>
+      </View>
       );
     }
 }
 
 const styles = StyleSheet.create({
-  checkboxContainer: {
+  input: {
+    margin: 5,
+    color: '#191654'
+  },
+  textStyle: {
+    color: '#191654',
+    fontWeight: 'bold'
+  },
+  monthlyContainerStyle: {
+    justifyContent: 'center'
+  },
+  monthlyStyle: {
+    width: 200,
+    marginRight: 'auto',
+    marginLeft: 'auto'
+  },
+  recurTextStyle: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  endTextStyle: {
+    color: '#191654',
+    fontWeight: 'bold',
+    marginTop: 20
+  },
+  chooseIcon: {
+    flex: 1,
     flexDirection: 'row',
-    overflow: 'scroll',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    width: '90%',
+    alignItems: 'center'
+  },
+  chooseIconText: {
+    color: '#191654',
+    fontSize: 14.95,
+    fontWeight: '500'
+  },
+  icons: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginTop: 12
+  },
+  circleShapeGreen: {
+    width: 20,
+    height: 20,
+    borderRadius: 20 / 2,
+    backgroundColor: '#98CE00'
+  },
+  circleShapeMagenta: {
+    width: 20,
+    height: 20,
+    borderRadius: 20 / 2,
+    backgroundColor: '#E83F6F'
+  },
+  circleShapeYellow: {
+    width: 20,
+    height: 20,
+    borderRadius: 20 / 2,
+    backgroundColor: '#FFD65C'
+  },
+  circleShapeWhite: {
+    width: 20,
+    height: 20,
+    borderRadius: 20 / 2,
+    backgroundColor: '#FFFFFF'
+  },
+  circleShapeBlack: {
+    width: 20,
+    height: 20,
+    borderRadius: 20 / 2,
+    backgroundColor: '#000000'
+  },
+  circleShapeRed: {
+    width: 20,
+    height: 20,
+    borderRadius: 20 / 2,
+    backgroundColor: '#800319'
   }
 });
 

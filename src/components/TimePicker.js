@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 
 class TimePicker extends Component {
@@ -19,7 +19,7 @@ render() {
     return (
       <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
         <View style={{ flexDirection: 'row' }}>
-          <Text style={{ marginTop: 20 }}>Start</Text>
+          <Text style={styles.textStyle}>Start</Text>
           <DatePicker
             mode="time"
             customStyles={{
@@ -45,7 +45,7 @@ render() {
           />
         </View>
         <View style={{ flexDirection: 'row' }}>
-          <Text style={{ marginTop: 20 }}>End</Text>
+          <Text style={styles.textStyle}>End</Text>
             <DatePicker
             customStyles={{
               dateIcon: {
@@ -74,5 +74,13 @@ render() {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  textStyle: {
+    marginTop: 20,
+    color: '#191654',
+    fontWeight: 'bold'
+  }
+});
 
 export { TimePicker };
