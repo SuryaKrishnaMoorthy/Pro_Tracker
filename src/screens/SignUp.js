@@ -142,6 +142,7 @@ class SignUpScreen extends Component {
           containerStyle={styles.inputContainer}
           inputStyle={styles.input}
           placeholder='Email'
+          autoCapitalize='none'
           placeholderTextColor='#fff'
           leftIcon={{ type: 'font-awesome', name: 'envelope', color: '#fff' }}
           leftIconContainerStyle={styles.leftIconContainer}

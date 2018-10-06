@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { ScrollView, View, StyleSheet } from 'react-native';
 import { Header, Input, Text, ListItem } from 'react-native-elements';
 
 import {
@@ -45,38 +45,48 @@ class SelectTask extends Component {
       return (
         <View>
           <Header
+            backgroundColor='#43C6AC'
             leftComponent={{
               icon: 'chevron-left',
-              color: '#fff',
+              color: '#191654',
               onPress: () => navigation.navigate('AddTask')
             }}
             centerComponent={{
-              text: navigation.getParam('task_name'),
-              style: { color: '#fff', fontWeight: 'bold' }
+              text: navigation.getParam('task_category'),
+              style: { color: '#191654', fontWeight: 'bold' }
             }}
             rightComponent={{
               icon: 'chevron-right',
-              color: '#fff',
+              color: '#191654',
               onPress: () => navigation.navigate('TaskForm', { task_name: this.state.task_name })
             }}
           />
+          <ScrollView>
           <Input
             placeholder='Write your task...'
+            inputStyle={styles.input}
             leftIcon={{ type: 'font-awesome', name: 'pencil' }}
             value={this.state.task_name}
             onChangeText={this.onInputChange}
           />
           <View>
-            <Text>Or choose from below..</Text>
+            <Text style={styles.text}>Or choose from below..</Text>
 
             {
               this.getTaskCategory().map((item, index) =>
                 <ListItem
-                  style={styles.container}
+                  containerStyle={styles.container}
                   title={item.value}
+                  titleStyle={styles.title}
                   chevron
+                  topDivider
                   bottomDivider
-                  chevronColor={'black'}
+                  chevronColor={'#191654'}
+                  leftIcon={{
+                    name: `${item.icon}`,
+                    type: `${item.iconType}`,
+                    color: `${item.iconColor}`
+                  }}
                   key={index}
                   onPress={() => navigation.navigate('TaskForm', {
                     task_name: this.state.task_name || item.value
@@ -85,6 +95,7 @@ class SelectTask extends Component {
               )
             }
           </View>
+        </ScrollView>
         </View>
       );
     }
@@ -92,11 +103,24 @@ class SelectTask extends Component {
 
   const styles = StyleSheet.create({
     container: {
-
+      backgroundColor: '#93CEC8',
+      margin: 2,
     },
-    row: {
-      padding: 15,
-      backgroundColor: 'skyblue',
+    title: {
+      color: '#191654',
+      fontSize: 15,
+      fontWeight: '700'
+    },
+    input: {
+      margin: 5,
+      color: '#191654'
+    },
+    text: {
+      margin: 15,
+      fontSize: 17,
+      alignSelf: 'center',
+      color: '#191654',
+      fontWeight: '500'
     }
   });
 

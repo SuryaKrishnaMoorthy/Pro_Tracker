@@ -102,6 +102,7 @@ class LoginForm extends Component {
               containerStyle={styles.inputContainer}
               inputStyle={styles.input}
               placeholder='Email'
+              autoCapitalize='none'
               placeholderTextColor='#fff'
               leftIcon={{ type: 'font-awesome', name: 'envelope', color: '#fff' }}
               leftIconContainerStyle={styles.leftIconContainer}
@@ -139,7 +140,6 @@ const styles = StyleSheet.create({
     marginBottom: '10%',
     fontSize: 20,
     color: '#FF0033',
-    // backgroundColor: '#FFBABA',
     alignSelf: 'center',
   },
   login: {
@@ -150,7 +150,6 @@ const styles = StyleSheet.create({
     marginBottom: '10%'
   },
   inputContainer: {
-    // alignSelf: 'stretch',
     borderBottomColor: '#f8f8f8',
     marginLeft: '5%',
     marginBottom: '5%'

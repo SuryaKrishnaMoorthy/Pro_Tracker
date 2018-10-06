@@ -9,3 +9,4 @@ export * from './PickerPro';
 export * from './AccordionPro';
 export * from './CircularProgressPro';
 export * from './BarChartPro';
+export * from './IconsPro';

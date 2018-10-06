@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Picker } from 'react-native';
+// import { Picker } from 'native-base';
 
 class PickerPro extends Component {
   constructor(props) {

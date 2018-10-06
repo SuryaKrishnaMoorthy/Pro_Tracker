@@ -18,7 +18,7 @@ class BarChartPro extends PureComponent {
       // RRule.fromString(this.props.task.r_rule).all()
       // : [];
       //
-      // const fill = 'rgb(134, 65, 244)';
+      const fill = 'rgb(134, 65, 244)';
       // const data = [
       //   { value: 30, label: '2018-10-01' },
       //   { value: 10, label: '2018-10-11' },
@@ -26,24 +26,26 @@ class BarChartPro extends PureComponent {
       //   { value: 40, label: '2018-10-31' },
       //   { value: 100, label: '2018-10-22' }
       // ];
-      const data = [50, 10, 40, 95]
+      const data = [50, 10, 30, 5, 60]
+      const keys = ['2018-10-01', '2018-10-11', '2018-10-21', '2018-10-31', '2018-10-22'];
 
       // const data = [30, 10, 20, 40, 100];
       return (
         <View style={{ height: 200, padding: 20 }}>
                <BarChart
                    style={{ flex: 1 }}
-                   data={ data }
-                   gridMin={ 0 }
+                   keys={keys}
+                   data={data}
+                   gridMin={0}
                    contentInset={{ top: 10, bottom: 10 }}
                    svg={{ stroke: 'rgb(134, 65, 244)' }}
                >
-                  <Grid/>
+                  <Grid direction={Grid.Direction.HORIZONTAL} />
                </BarChart>
                <XAxis
                    style={{ marginHorizontal: -10 }}
-                   data={ data }
-                   formatLabel={ (data) => data }
+                   data={data}
+                   formatLabel={(value, index) => keys[index]}
                    contentInset={{ left: 10, right: 10 }}
                    svg={{ fontSize: 10, fill: 'black' }}
                />

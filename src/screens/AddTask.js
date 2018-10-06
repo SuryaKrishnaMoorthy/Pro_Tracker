@@ -21,7 +21,7 @@ class AddTask extends Component {
     return (
       <ScrollView>
         <View>
-        <ImageBackground source={proBackground} style={{ height: '130%' }}>
+        {/* <ImageBackground source={proBackground} style={{ height: '130%' }}> */}
         <Header
           backgroundColor='#43C6AC'
           leftComponent={{
@@ -59,6 +59,7 @@ class AddTask extends Component {
                 chevron
                 bottomDivider
                 chevronColor={'#191654'}
+                leftIcon={{ name: 'beer', type: 'ionicon' }}
                 key={index}
                 onPress={() => navigation.navigate('SelectTask', {
                   task_category: item.value,
@@ -68,7 +69,7 @@ class AddTask extends Component {
             )
           }
         </View>
-      </ImageBackground>
+      {/* </ImageBackground> */}
     </View>
       </ScrollView>
     );

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ButtonGroup } from 'react-native-elements';
-
+import { StyleSheet } from 'react-native';
 
 class ButtonGroupPro extends Component {
   constructor() {
@@ -13,20 +13,32 @@ class ButtonGroupPro extends Component {
 
   updateIndex(selectedIndex) {
     this.setState({ selectedIndex });
+    this.props.onButtonValueChange(this.props.buttonValues[selectedIndex]);
   }
 
   render() {
-    const buttons = ['Personal', 'Professional'];
     const { selectedIndex } = this.state;
 
     return (
       <ButtonGroup
+        selectedButtonStyle={styles.selectedButtonStyle}
+        textStyle={styles.textStyle}
+        selectedTextStyle={styles.textStyle}
         onPress={this.updateIndex}
         selectedIndex={selectedIndex}
-        buttons={buttons}
+        buttons={this.props.buttonValues}
       />
     );
   }
 }
+
+const styles = StyleSheet.create({
+  selectedButtonStyle: {
+    backgroundColor: '#43C6AC',
+  },
+  textStyle: {
+    color: '#191654',
+  }
+});
 
 export { ButtonGroupPro };

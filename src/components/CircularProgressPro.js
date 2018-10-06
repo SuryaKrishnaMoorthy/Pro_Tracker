@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 const mapStateToProps = ({ data }) => {
@@ -13,15 +13,15 @@ class CircularProgressPro extends Component {
     if (fillValue <= 20) {
       return 'Hey there, you just started!\nKeep going!!';
     } else if (fillValue > 20 && fillValue <= 49) {
-      return 'You are doing great!! Keep it up!!';
+      return 'You are doing great!! \nKeep it up!!';
     } else if (fillValue > 49 && fillValue <= 51) {
-      return 'Great Job! You are half way through!';
+      return 'Great Job! \nYou are half way through!';
     } else if (fillValue > 51 && fillValue <= 95) {
-      return 'Great Job! Keep going!';
+      return 'Great Job! \nKeep going!';
     } else if (fillValue > 95 && fillValue <= 99) {
       return 'You are almost there!';
     } else if (fillValue === 100) {
-      return 'Congratulations!! You finished your task!';
+      return 'Congratulations!! \nYou finished your task!';
     }
   }
 
@@ -33,7 +33,7 @@ class CircularProgressPro extends Component {
     return (
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <View style={{ width: '33.3%' }}>
-          <Text>
+          <Text style={styles.scoreText}>
             { this.progressMessage(fillValue) }
           </Text>
         </View>
@@ -42,7 +42,7 @@ class CircularProgressPro extends Component {
             size={120}
             width={14}
             fill={fillValue || 0}
-            tintColor="#00e0ff"
+            tintColor="#43C6AC"
             onAnimationComplete={() => console.log('onAnimationComplete')}
             backgroundColor="#3d5875"
             duration={1000}
@@ -62,10 +62,10 @@ class CircularProgressPro extends Component {
           </AnimatedCircularProgress>
         </View>
         <View style={{ width: '33.3%' }} >
-          <Text>
+          <Text style={styles.scoreText}>
             Current Score: { current_score }
           </Text>
-          <Text>
+          <Text style={styles.scoreText}>
             Total Score: { total_score }
           </Text>
         </View>
@@ -73,5 +73,12 @@ class CircularProgressPro extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  scoreText: {
+    marginTop: '20%',
+    marginLeft: '10%'
+  }
+});
 
 export default connect(mapStateToProps, null)(CircularProgressPro);

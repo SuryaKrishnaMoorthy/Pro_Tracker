@@ -10,7 +10,8 @@ import {
   SIGN_UP_USER_FAIL,
   LOGIN_USER_FAIL,
   CLEAR_ERROR,
-  LOGOUT
+  LOGOUT,
+  DELETE_USER
  } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -28,7 +29,6 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case EMAIL_CHANGED:
-      console.log({ ...state, email: action.payload });
       return { ...state, email: action.payload };
     case PASSWORD_CHANGED:
       return { ...state, password: action.payload };
@@ -55,6 +55,8 @@ export default (state = INITIAL_STATE, action) => {
     console.log('clear error', { ...state, error: '' });
       return { ...state, error: '' };
     case LOGOUT:
+      return INITIAL_STATE;
+    case DELETE_USER:
       return INITIAL_STATE;
     default:
       return state;

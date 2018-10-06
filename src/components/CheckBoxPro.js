@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 
 class CheckBoxPro extends Component {
@@ -73,34 +73,39 @@ class CheckBoxPro extends Component {
 
   render() {
     return (
-      Object.keys(this.state.checkboxes).map((id) =>
-        <View key={id.toString()} style={styles.container}>
-          <CheckBox
-            key={id.toString()}
-            title={this.state.checkboxes[id].title}
-            checked={this.state.checkboxes[id].checked}
-            onPress={() => {
-              let byDay = this.state.byDay;
-              if (id === 'ALL') {
-                byDay = this.setAllDay(!this.state.checkboxes[id].checked);
-              } else {
-                byDay = this.toggleCheckbox(id);
-              }
-              this.props.updateByDay(byDay);
-             }}
-            size={15}
-            textStyle={{ fontSize: 10 }}
-          />
-        </View>
-      )
-    );
+      <View>
+        <ScrollView horizontal>
+          {Object.keys(this.state.checkboxes).map((id) =>
+            <View key={id.toString()} style={styles.container}>
+              <CheckBox
+                containerStyle={styles.containerStyle}
+                key={id.toString()}
+                title={this.state.checkboxes[id].title}
+                checked={this.state.checkboxes[id].checked}
+                onPress={() => {
+                  let byDay = this.state.byDay;
+                  if (id === 'ALL') {
+                    byDay = this.setAllDay(!this.state.checkboxes[id].checked);
+                  } else {
+                    byDay = this.toggleCheckbox(id);
+                  }
+                  this.props.updateByDay(byDay);
+                 }}
+                size={15}
+                textStyle={{ fontSize: 10 }}
+              />
+            </View>)
+          }
+        </ScrollView>
+      </View>
+  );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'flex-start',
+  containerStyle: {
+    marginRight: 5,
+    justifyContent: 'space-around'
   }
 });
 

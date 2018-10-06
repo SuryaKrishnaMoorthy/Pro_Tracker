@@ -1,7 +1,7 @@
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel }
   from 'react-native-simple-radio-button';
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 class RadioButtonPro extends Component {
 
@@ -53,11 +53,7 @@ class RadioButtonPro extends Component {
                   this.setState({ value, index });
                   this.props.updateFrequency(value);
                 }}
-                labelStyle={{
-                  fontSize: 18,
-                  color: '#000',
-                  paddingLeft: 4
-                }}
+                labelStyle={styles.labelStyle}
                 labelWrapStyle={{
                   paddingRight: 10
                 }}
@@ -70,5 +66,20 @@ class RadioButtonPro extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  labelStyle: {
+    fontSize: 18,
+    color: '#191654',
+    paddingLeft: 4
+  },
+  textStyle: {
+    marginTop: 20,
+    color: '#191654',
+    fontWeight: 'bold'
+  }
+});
+
+
 
 export { RadioButtonPro };

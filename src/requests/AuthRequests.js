@@ -30,3 +30,18 @@ export const logoutRequest = async () => {
     console.log(error);
   }
 };
+
+export const deleteUserRequest = async () => {
+  try {
+    const token = await AsyncStorage.getItem('token');
+    const response = await axios.delete(`${baseURL}/users`, {
+      headers: {
+        authorization: `Bearer ${token}`
+      }
+    });
+    await AsyncStorage.clear();
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
