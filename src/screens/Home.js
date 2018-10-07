@@ -5,6 +5,10 @@ import ListItem from '../components/ListItem';
 
 class HomeScreen extends Component {
 
+  componentDidMount() {
+    
+  }
+
   render() {
     const { navigation } = this.props;
     const imageSource = { uri: 'https://images.unsplash.com/photo-1531095955519-cb8fe8df6272?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=28869ebefb72f1b3e47deefa10c8edec&auto=format&fit=crop&w=1650&q=80' };

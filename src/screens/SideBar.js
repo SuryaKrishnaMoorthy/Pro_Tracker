@@ -118,14 +118,38 @@ class Sidebar extends Component {
               </ListItem>
             </Content>
             <Content>
-              <ListItem icon>
+              <ListItem
+                icon
+                onPress={() => {
+                  // this.props.getTasksByType('professional');
+                  navigator.navigate('BadgeView');
+                  this.props.closeDrawer();
+                }}
+              >
                 <Left>
                   <Button style={{ backgroundColor: '#FF9501' }}>
                     <Icon active name="home" />
                   </Button>
                 </Left>
                 <Body>
-                  <Text>Notifications</Text>
+                  <Text>Badges</Text>
+                </Body>
+              </ListItem>
+              <ListItem
+                icon
+                onPress={() => {
+                  // this.props.getTasksByType('professional');
+                  navigator.navigate('DiscussionBoard');
+                  this.props.closeDrawer();
+                }}
+              >
+                <Left>
+                  <Button style={{ backgroundColor: '#FF9501' }}>
+                    <Icon active name="ios-chatbubbles" />
+                  </Button>
+                </Left>
+                <Body>
+                  <Text>Messages</Text>
                 </Body>
               </ListItem>
               <ListItem icon>

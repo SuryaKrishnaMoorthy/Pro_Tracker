@@ -10,6 +10,7 @@ export const SIGN_UP_USER_FAIL = 'signup_user_fail';
 export const CLEAR_ERROR = 'clear_error';
 export const LOGIN_USER = 'login_user';
 export const LOGOUT = 'logout';
+export const GET_USER = 'get_user';
 export const DELETE_USER = 'delete_user';
 
 export const GET_CURRENT_DAY_TASKS = 'get_current_day_tasks';
