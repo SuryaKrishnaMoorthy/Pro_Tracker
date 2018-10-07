@@ -1,30 +1,30 @@
 const taskCategory = [
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
-    icon: 'iconName',
+    icon: 'calendar',
     value: 'Events'
   },
   {
-    iconColor: '#f50',
-    iconType: 'font-awesome',
+    iconColor: '#191654',
+    iconType: '',
     icon: 'home',
     value: 'Home'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
     icon: 'heartbeat',
     value: 'Health'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
-    icon: 'user-graduate',
+    icon: 'graduation-cap',
     value: 'Academics'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
     icon: 'paw',
     value: 'Pets'
@@ -33,202 +33,202 @@ const taskCategory = [
 
 const events = [
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
     icon: 'birthday-cake',
     value: 'Birthday'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
     icon: 'comments',
     value: 'Meeting'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
     icon: 'phone-square',
     value: 'Calls'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
     icon: 'glass',
     value: 'Party'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
     icon: 'music',
     value: 'Concerts'
   },
   {
-    iconColor: '#f50',
-    iconType: 'font-awesome',
-    icon: 'delicious',
+    iconColor: '#191654',
+    iconType: 'ionicon',
+    icon: 'ios-nutrition',
     value: 'Lunch'
   },
   {
-    iconColor: '#f50',
-    iconType: 'font-awesome',
-    icon: 'utensils',
+    iconColor: '#191654',
+    iconType: 'ionicon',
+    icon: 'ios-restaurant',
     value: 'Dinner'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
     icon: 'child',
     value: 'Baby Shower'
   },
   {
-    iconColor: '#f50',
-    iconType: 'font-awesome',
-    icon: 'church',
+    iconColor: '#191654',
+    iconType: '',
+    icon: 'wc',
     value: 'Wedding'
   }
 ];
 
 const home = [
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
     icon: 'trash',
     value: 'Clean the House'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
     icon: 'tree',
     value: 'Gardening'
   },
   {
-    iconColor: '#f50',
-    iconType: 'ionicon',
-    icon: 'pizza',
+    iconColor: '#191654',
+    iconType: 'font-awesome',
+    icon: 'cutlery',
     value: 'Cooking'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
     icon: 'credit-card',
     value: 'Pay my Bills'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
     icon: 'shopping-bag',
     value: 'Buy Grocery'
   },
   {
-    iconColor: '#f50',
-    iconType: 'font-awesome',
-    icon: 'iconName',
+    iconColor: '#191654',
+    iconType: 'material-icons',
+    icon: 'local-laundry-service',
     value: 'Do Laundry'
   }
 ];
 
 const health = [
   {
-    iconColor: '#f50',
-    iconType: 'font-awesome',
-    icon: 'dumbbell',
+    iconColor: '#191654',
+    iconType: 'material-icons',
+    icon: 'fitness-center',
     value: 'Hit the Gym'
   },
   {
-    iconColor: '#f50',
-    iconType: 'font-awesome',
-    icon: 'praying-hands',
+    iconColor: '#191654',
+    iconType: 'ionicon',
+    icon: 'md-body',
     value: 'Do Yoga'
   },
   {
-    iconColor: '#f50',
-    iconType: 'font-awesome',
-    icon: 'tooth',
+    iconColor: '#191654',
+    iconType: 'ionicon',
+    icon: 'md-pint',
     value: 'Brush and Floss'
   },
   {
-    iconColor: '#f50',
-    iconType: 'font-awesome',
-    icon: 'tint',
+    iconColor: '#191654',
+    iconType: 'material-icons',
+    icon: 'local-drink',
     value: 'Drink Water'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
-    icon: 'capsules',
+    icon: 'plus',
     value: 'Take Medication'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
     icon: 'heartbeat',
     value: 'Eat a healthy Meal'
   },
   {
-    iconColor: '#f50',
-    iconType: 'font-awesome',
-    icon: 'swimmer',
+    iconColor: '#191654',
+    iconType: '',
+    icon: 'pool',
     value: 'Swim'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
     icon: 'coffee',
     value: 'Don\'t skip Breakfast'
   },
   {
-    iconColor: '#f50',
-    iconType: 'font-awesome',
-    icon: 'pray',
+    iconColor: '#191654',
+    iconType: 'material-icons',
+    icon: 'airline-seat-recline-normal',
     value: 'Do Meditation'
   }
 ];
 
 const academics = [
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
     icon: 'book',
     value: 'Do Assignments'
   },
   {
-    iconColor: '#f50',
-    iconType: 'ionicon',
-    icon: 'calculator',
+    iconColor: '#191654',
+    iconType: 'font-awesome',
+    icon: 'plus',
     value: 'Practice Maths'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
     icon: 'laptop',
     value: 'Project Work'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
     icon: 'leaf',
     value: 'Learn a new Language'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
-    icon: 'laptop-code',
+    icon: 'laptop',
     value: 'Learn Coding'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
-    icon: 'abacus',
+    icon: 'calendar',
     value: 'Prepare for Test'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
-    icon: 'handshake',
+    icon: 'group',
     value: 'Parent-Teacher Meet'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
     icon: 'plane',
     value: 'Study Tour'
@@ -237,45 +237,45 @@ const academics = [
 
 const pets = [
   {
-    iconColor: '#f50',
-    iconType: 'font-awesome',
-    icon: 'iconName',
+    iconColor: '#191654',
+    iconType: 'foundation',
+    icon: 'guide-dog',
     value: 'Take dog for a walk'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
-    icon: 'iconName',
+    icon: 'user-md',
     value: 'Take my pet to Vet'
   },
   {
-    iconColor: '#f50',
-    iconType: 'font-awesome',
-    icon: 'iconName',
+    iconColor: '#191654',
+    iconType: '',
+    icon: 'shopping-cart',
     value: 'Shopping for my pet'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
-    icon: 'iconName',
+    icon: 'bathtub',
     value: 'Bath my pet'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
-    icon: 'iconName',
+    icon: 'book',
     value: 'Read a Book'
   },
   {
-    iconColor: '#f50',
+    iconColor: '#191654',
     iconType: 'font-awesome',
-    icon: 'iconName',
+    icon: 'music',
     value: 'Sing a Song'
   },
   {
-    iconColor: '#f50',
-    iconType: 'font-awesome',
-    icon: 'iconName',
+    iconColor: '#191654',
+    iconType: 'ionicon',
+    icon: 'md-microphone',
     value: 'Groom my pet'
   }
 ];

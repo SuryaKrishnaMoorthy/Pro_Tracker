@@ -10,6 +10,7 @@ import {
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { NavigationEvents } from 'react-navigation';
 import moment from 'moment';
 import ListItem from '../components/ListItem';
 
@@ -31,24 +32,15 @@ class HomeView extends Component {
     this.state = {
       dataSource: new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2
-      }).cloneWithRows([
-        'Simplicity Matters',
-        'Hammock Driven Development',
-        'Value of Values',
-        'Are We There Yet?',
-        'The Language of the System',
-        'Design, Composition, and Performance',
-        'Clojure core.async',
-        'The Functional Database',
-        'Deconstructing the Database',
-        'Hammock Driven Development',
-        'Value of Values'
-      ])
+      })
     };
   }
 
   componentDidMount() {
     this.props.getCurrentDayTasks(moment().add(this.props.dayIndex, 'day'));
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(this.props.tasks)
+    });
   }
 
   render() {
@@ -129,7 +121,17 @@ class HomeView extends Component {
             )}
           />
         )}
-      />
+      >
+        <NavigationEvents
+          onWillFocus={() => {
+            this.props.getCurrentDayTasks(moment().add(this.props.dayIndex, 'day'));
+            this.setState({
+              dataSource: this.state.dataSource.cloneWithRows(this.props.tasks)
+            });
+            console.log('Hi', this.state);
+          }}
+        />
+      </ListView>
     );
   }
 }

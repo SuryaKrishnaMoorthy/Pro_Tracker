@@ -61,41 +61,42 @@ class SelectTask extends Component {
               onPress: () => navigation.navigate('TaskForm', { task_name: this.state.task_name })
             }}
           />
-          <ScrollView>
-          <Input
-            placeholder='Write your task...'
-            inputStyle={styles.input}
-            leftIcon={{ type: 'font-awesome', name: 'pencil' }}
-            value={this.state.task_name}
-            onChangeText={this.onInputChange}
-          />
-          <View>
-            <Text style={styles.text}>Or choose from below..</Text>
-
-            {
-              this.getTaskCategory().map((item, index) =>
-                <ListItem
-                  containerStyle={styles.container}
-                  title={item.value}
-                  titleStyle={styles.title}
-                  chevron
-                  topDivider
-                  bottomDivider
-                  chevronColor={'#191654'}
-                  leftIcon={{
-                    name: `${item.icon}`,
-                    type: `${item.iconType}`,
-                    color: `${item.iconColor}`
-                  }}
-                  key={index}
-                  onPress={() => navigation.navigate('TaskForm', {
-                    task_name: this.state.task_name || item.value
-                  })}
-                />
-              )
-            }
-          </View>
-        </ScrollView>
+          <ScrollView
+            style={{ height: '100%' }}
+          >
+            <View>
+              <Input
+                placeholder='Write your task...'
+                inputStyle={styles.input}
+                leftIcon={{ type: 'font-awesome', name: 'pencil' }}
+                value={this.state.task_name}
+                onChangeText={this.onInputChange}
+              />
+              <Text style={styles.text}>Or choose from below..</Text>
+              {
+                this.getTaskCategory().map((item, index) =>
+                  <ListItem
+                    containerStyle={styles.container}
+                    title={item.value}
+                    titleStyle={styles.title}
+                    chevron
+                    topDivider
+                    bottomDivider
+                    chevronColor={'#191654'}
+                    leftIcon={{
+                      name: `${item.icon}`,
+                      type: `${item.iconType}`,
+                      color: `${item.iconColor}`
+                    }}
+                    key={index}
+                    onPress={() => navigation.navigate('TaskForm', {
+                      task_name: this.state.task_name || item.value
+                    })}
+                  />
+                )
+              }
+            </View>
+          </ScrollView>
         </View>
       );
     }

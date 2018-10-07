@@ -3,32 +3,34 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
 import { Header } from 'react-native-elements';
-import { Icon, Badge, ListItem, Body, Left, Drawer, Right } from 'native-base';
+import { Icon, Badge, ListItem, Body, Left, Drawer, Center, Right } from 'native-base';
 
 import Sidebar from './Sidebar';
 import { getBadges } from '../actions';
 
-const lock = require('../assets/badges/green-lock.png');
+const lock = require('../assets/badges/locksilver.png');
 const bronze = require('../assets/badges/bronze.png');
-const diamond = require('../assets/badges/diamond.png');
+const diamond = require('../assets/badges/diamond1.png');
+const platinum = require('../assets/badges/platinum.png');
 const garnet = require('../assets/badges/garnet.png');
 const gold = require('../assets/badges/gold.png');
 const jadeite = require('../assets/badges/jadeite.png');
 const opal = require('../assets/badges/opal.png');
-const ruby = require('../assets/badges/ruby.png');
-const silver = require('../assets/badges/silver.json');
+const ruby = require('../assets/badges/rubys.png');
+const painite = require('../assets/badges/painite.png');
+const silver = require('../assets/badges/silver.png');
 
 const badgeImages = {
   bronze: { img: bronze, value: 100 },
-  silver: { img: bronze, value: 1000 },
-  gold: { img: bronze, value: 5000 },
-  platinum: { img: bronze, value: 11500 },
-  opal: { img: bronze, value: 16500 },
-  diamond: { img: bronze, value: 21500 },
-  painite: { img: bronze, value: 26500 },
-  ruby: { img: bronze, value: 31500 },
-  jadeite: { img: bronze, value: 40000 },
-  garnet: { img: bronze, value: 50000 },
+  silver: { img: silver, value: 1000 },
+  gold: { img: gold, value: 5000 },
+  platinum: { img: platinum, value: 11500 },
+  opal: { img: opal, value: 16500 },
+  diamond: { img: diamond, value: 21500 },
+  painite: { img: painite, value: 26500 },
+  ruby: { img: ruby, value: 31500 },
+  jadeite: { img: jadeite, value: 40000 },
+  garnet: { img: garnet, value: 50000 },
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({ getBadges }, dispatch);
@@ -73,49 +75,70 @@ class BadgeView extends Component {
         <View>
           <Text style={styles.title}>Badges Earned</Text>
         </View>
-        <View>
-          <ScrollView horizontal>
+        <View style={{ backgroundColor: '#191654', height: '100%' }}>
+          <ScrollView
+            horizontal
+            contentContainerStyle={styles.contentContainer}
+          >
             {
               this.props.badges
               ?
                 Object.keys(badgeNumber).map((badge, index) => {
                   if (badgeNumber[badge] > 0) {
-                    return (<View style={styles.badgeView} key={index}>
+                    return (
+                      <View
+                        style={{
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          marginTop: 10,
+                          marginLeft: 40,
+                          marginRight: 20
+                        }}
+                        key={index}
+                      >
+                        <View>
+                          <Image
+                            key={index}
+                            source={badgeImages[badge].img}
+                          />
+                        </View>
+                        <View style={{ flexDirection: 'row', marginTop: 20 }}>
+                          <View>
+                            <Text
+                              style={styles.badgeNumber}
+                            >{badgeNumber[badge]}</Text>
+                          </View>
+                          <View>
+                            <Icon active style={styles.iconStar} name="star" />
+                          </View>
+                        </View>
+                      </View>);
+                }
+                return (
+                  <View
+                    style={{
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      marginTop: 10,
+                      marginLeft: 20,
+                      marginRight: 40
+                    }}
+                    key={index}
+                  >
+                    <View>
                       <Image key={index} source={badgeImages[badge].img} />
-                      <Badge style={styles.badgeIcon}>
-                        <ListItem icon>
-                           <Left>
-                              <Icon active style={styles.iconStar} name="star" />
-                           </Left>
-                           <Body style={{ borderBottomColor: 'transparent' }}>
-                              <Text>{badgeNumber[badge]}</Text>
-                           </Body>
-                        </ListItem>
-                       </Badge>
+                    </View>
+                    <View>
+                      <Image
+                       key={index}
+                       source={lock}
+                      />
+                    </View>
+                    <View style={{ width: 100, alignItems: 'center' }}>
+                      <Text style={{ color: '#FFFFFF', fontWeight: 'bold' }}>
+                        Unlock with {badgeImages[badge].value} points</Text>
+                    </View>
                    </View>);
-                 }
-                 return (<View style={styles.badgeView} key={index}>
-                   <Image blurRadius={2} key={index} source={badgeImages[badge].img} />
-                   <Badge style={styles.badgeIcon}>
-                     <ListItem>
-                        <Left>
-                           <Image
-                             key={index}
-                             style={styles.lockImage}
-                             source={lock}
-                           />
-                        </Left>
-                        <Body style={{ borderBottomColor: 'transparent' }}>
-                           <Text
-                             style={{ color: 'black', height: 50, fontSize: 10 }}
-                           > Unlock with {badgeImages[badge].value} points</Text>
-                           <Text
-                             style={{ color: 'black', height: 50, fontSize: 10 }}
-                           />
-                        </Body>
-                     </ListItem>
-                    </Badge>
-                 </View>);
                })
               : ''
             }
@@ -128,26 +151,25 @@ class BadgeView extends Component {
 }
 
 const styles = StyleSheet.create({
-  badgeView: {
-    marginRight: 15
+  contentContainer: {
+    backgroundColor: '#191654',
+    height: '100%'
   },
   title: {
-    marginTop: '20%',
+    marginTop: '90%',
     marginBottom: '10%',
     alignSelf: 'center',
     color: '#191654',
     fontWeight: 'bold'
   },
-  badgeIcon: {
-    backgroundColor: '#ffffff',
-    flexDirection: 'column',
-    width: '100%',
-  },
   iconStar: {
     color: '#FFD700'
   },
-  lockImage: {
-
+  badgeNumber: {
+    color: '#ffffff',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 3
   }
 });
 

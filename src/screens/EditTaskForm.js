@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
-import { Header, Input, Icon, Divider } from 'react-native-elements';
+import { Header, Input, Icon, Divider, ButtonGroup } from 'react-native-elements';
 import moment from 'moment';
 
 import pickerValues from '../helpers/data';
@@ -14,7 +14,8 @@ import {
   TimePicker,
   DatePickerPro,
   PickerPro,
-  OccurrenceCount
+  OccurrenceCount,
+  IconsPro
 } from '../components';
 import { updateOneTask } from '../actions';
 
@@ -52,6 +53,7 @@ class EditTaskForm extends Component {
       pickerValue: (rRuleObj.freq === 'MONTHLY')
       ? (rRuleObj.byDay ? rRuleObj.byDay : rRuleObj.byMonthDay)
       : '31',
+      iconExpanded: false,
       ...task,
     };
   }
@@ -70,6 +72,9 @@ class EditTaskForm extends Component {
       occurrences,
       byDay,
       pickerValue,
+      icon_name,
+      icon_color,
+      icon_type,
     } = this.state;
 
     const sRruleTime = moment(start_time, 'HH:mm').format('HHmmss');
@@ -108,13 +113,25 @@ class EditTaskForm extends Component {
       start_time,
       end_time,
       total_score: rRuleSize * 100,
-      current_score: this.intersect(taskStatusDates, rRuleDates).length * 100
+      current_score: this.intersect(taskStatusDates, rRuleDates).length * 100,
+      icon_name,
+      icon_color,
+      icon_type,
     };
     this.props.updateOneTask(id, body);
   }
 
   onInputChange = (text) => {
     this.setState({ task_name: text });
+  }
+
+  onTaskTypeChange = (value) => {
+    this.setState({ task_type: value });
+    console.log(this.state);
+  }
+
+  onEventTypeChange = (value) => {
+    this.setState({ event_type: value });
   }
 
   intersect = (a, b) => {
@@ -163,12 +180,54 @@ class EditTaskForm extends Component {
     this.setState({ pickerValue });
   }
 
+  expandIconView = () => {
+    this.setState({ iconExpanded: !this.state.iconExpanded });
+  }
+
+  selectIcon = (icon_name, icon_type = '') => {
+    this.setState({ icon_name, icon_type, iconExpanded: !this.state.iconExpanded });
+  }
+
+  selectColor = (icon_color) => {
+    this.setState({ icon_color });
+  }
+
   render() {
     const { navigation } = this.props;
+    const chooseIcon = () =>
+        <View style={styles.chooseIcon}>
+          <View>
+            <Text style={styles.chooseIconText}>Choose an icon: </Text>
+          </View>
+          <View>
+            { this.state.icon_name && this.state.icon_color
+              ?
+              <Icon
+                name={this.state.icon_name}
+                color={this.state.icon_color}
+                type={this.state.icon_type}
+              />
+              : ''
+            }
+          </View>
+          <View>
+            { !this.state.iconExpanded
+              ?
+              <Icon
+                name='expand-more'
+              />
+              :
+              <Icon
+                name='expand-less'
+              />
+            }
+          </View>
+        </View>;
 
     return (
-      <ScrollView>
+      <View>
         <Header
+          backgroundColor='#43C6AC'
           leftComponent={{
             icon: 'chevron-left',
             color: '#fff',
@@ -187,116 +246,196 @@ class EditTaskForm extends Component {
             }
           }}
         />
-        <Input
-          placeholder='Write your task...'
-          leftIcon={{ type: 'font-awesome', name: 'pencil' }}
-          value={this.state.task_name}
-          onChangeText={this.onInputChange}
-        />
-        <ButtonGroupPro />
-        <Text>
-          Choose an icon:
-          <Icon
-            name='chevron-circle-down'
-            type='font-awesome'
-            onPress={() => console.log('hello')}
+        <ScrollView style={{ height: '100%' }}>
+          <Input
+            placeholder='Write your task...'
+            leftIcon={{ type: 'font-awesome', name: 'pencil' }}
+            inputStyle={styles.input}
+            value={this.state.task_name}
+            onChangeText={this.onInputChange}
           />
-        </Text>
-        <View>
-          <TimePicker
-            updateTime={this.updateTime}
-            selectedStartTime={this.state.start_time}
-            selectedEndTime={this.state.end_time}
+          <ButtonGroupPro
+            buttonValues={['Personal', 'Professional']}
+            onButtonValueChange={this.onTaskTypeChange}
           />
-        </View>
-        <Divider style={{ marginTop: 10, marginBottom: 10 }} />
-        <View>
-          <RadioButtonPro
-            radioProps={this.state.radioProps}
-            updateFrequency={this.updateFrequency}
-            selectedFrequency={
-              this.state.radioProps
-              .findIndex(obj => obj.value === this.state.frequency)
-            }
+          <ButtonGroup
+            buttons={[{ element: chooseIcon }]}
+            containerStyle={{ backgroundColor: '#43C6AC' }}
+            onPress={this.expandIconView}
           />
-        </View>
-        <Divider style={{ marginTop: 10, marginBottom: 10 }} />
-        { this.state.frequency === 'DAILY' ?
-        (<View>
-          <IntervalInput
-            frequency={this.state.frequency}
-            dailyRecur={this.state.interval}
-            updateInterval={this.updateInterval}
-            selectedInterval={this.state.interval}
-          />
-        </View>) : ''
-        }
-        { this.state.frequency === 'WEEKLY' ?
-        (<View>
-          <View style={styles.checkboxContainer}>
-            <CheckBoxPro
-              updateByDay={this.updateByDay}
-              selectedDays={this.state.byDay}
+          { this.state.iconExpanded
+            ?
+            <IconsPro
+              icon_color={this.state.icon_color}
+              selectIcon={this.selectIcon}
+              selectColor={this.selectColor}
+            />
+            : ''
+          }
+          <View>
+            <TimePicker
+              updateTime={this.updateTime}
+              selectedStartTime={this.state.start_time}
+              selectedEndTime={this.state.end_time}
             />
           </View>
           <Divider style={{ marginTop: 10, marginBottom: 10 }} />
-          <IntervalInput
-            frequency={this.state.frequency}
-            dailyRecur={this.state.interval}
-            updateInterval={this.updateInterval}
-            selectedInterval={this.state.interval}
-          />
-        </View>) : ''
-        }
-        { this.state.frequency === 'MONTHLY' ?
-          (<View>
-            <View>
-              <PickerPro
-                pickerValues={pickerValues}
-                pickerValueChange={this.pickerValueChange}
-                selectedPickerValue={this.state.pickerValue}
-              />
-              <IntervalInput
-                frequency={this.state.frequency}
-                dailyRecur={this.state.interval}
-                updateInterval={this.updateInterval}
-                selectedInterval={this.state.interval}
-              />
-            </View>
-          </View>) : ''
-        }
-        <Divider style={{ marginTop: 10, marginBottom: 10 }} />
-        <View style={{ flexDirection: 'row' }}>
-          <DatePickerPro
-            dateType={'start'}
-            dateText={'Start Date'}
-            updateDate={this.updateStartDate}
-            selectedDate={this.state.start_date}
-          />
-        </View>
-        <Divider style={{ marginTop: 10, marginBottom: 10 }} />
-        <View style={{ flexDirection: 'row' }}>
-          <OccurrenceCount
-            updateOccurrences={this.updateOccurrences}
-            selectedOccurrence={this.state.occurrences}
-          />
-          <DatePickerPro
-            dateType={'end'}
-            dateText={'End Date'}
-            updateDate={this.updateEndDate}
-            selectedDate={this.state.end_date}
-          />
-        </View>
-      </ScrollView>
+          <View>
+            <ButtonGroupPro
+              buttonValues={['Single Event', 'Repeated Events']}
+              onButtonValueChange={this.onEventTypeChange}
+            />
+          </View>
+          <Divider style={{ marginTop: 10, marginBottom: 10 }} />
+          { this.state.event_type === 'Repeated Events'
+            ?
+              (<View>
+                <View>
+                  <RadioButtonPro
+                    radioProps={this.state.radioProps}
+                    updateFrequency={this.updateFrequency}
+                    selectedFrequency={
+                      this.state.radioProps
+                      .findIndex(obj => obj.value === this.state.frequency)
+                    }
+                  />
+                </View>
+                <Divider style={{ marginTop: 10, marginBottom: 10 }} />
+                { this.state.frequency === 'DAILY'
+                  ?
+                    (<View>
+                      <IntervalInput
+                        frequency={this.state.frequency}
+                        dailyRecur={this.state.interval}
+                        updateInterval={this.updateInterval}
+                        selectedInterval={this.state.interval}
+                      />
+                    </View>)
+                  : ''
+                }
+                { this.state.frequency === 'WEEKLY'
+                  ?
+                    (<View>
+                      <View>
+                        <CheckBoxPro
+                          updateByDay={this.updateByDay}
+                          selectedDays={this.state.byDay}
+                        />
+                      </View>
+                      <Divider style={{ marginTop: 10, marginBottom: 10 }} />
+                      <IntervalInput
+                        frequency={this.state.frequency}
+                        dailyRecur={this.state.interval}
+                        updateInterval={this.updateInterval}
+                        selectedInterval={this.state.interval}
+                      />
+                    </View>)
+                  : ''
+                }
+                { this.state.frequency === 'MONTHLY'
+                  ?
+                    (<View flex center>
+                      <View style={styles.monthlyStyle}>
+                        <View style={styles.recurTextStyle}>
+                          <Text style={styles.textStyle}>Recur</Text>
+                        </View>
+                        <PickerPro
+                          pickerValues={pickerValues}
+                          pickerValueChange={this.pickerValueChange}
+                          selectedPickerValue={this.state.pickerValue}
+                        />
+                        <IntervalInput
+                          frequency={this.state.frequency}
+                          dailyRecur={this.state.interval}
+                          updateInterval={this.updateInterval}
+                          selectedInterval={this.state.interval}
+                        />
+                      </View>
+                    </View>)
+                  : ''
+                }
+                <Divider style={{ marginTop: 10, marginBottom: 10 }} />
+              </View>)
+            : ''
+          }
+          <View>
+            <DatePickerPro
+              dateType={'start'}
+              dateText={'Start Date'}
+              updateDate={this.updateStartDate}
+              selectedDate={this.state.start_date}
+            />
+          </View>
+          <Divider style={{ marginTop: 10, marginBottom: 10 }} />
+          <View>
+            { this.state.event_type === 'Repeated Events'
+              ?
+                <View>
+                  <View>
+                    <OccurrenceCount
+                      updateOccurrences={this.updateOccurrences}
+                      selectedOccurrence={this.state.occurrences}
+                    />
+                  </View>
+                  <View style={styles.recurTextStyle}>
+                    <Text style={styles.endTextStyle}>
+                      --------OR--------
+                    </Text>
+                  </View>
+                </View>
+              : ''
+            }
+            <DatePickerPro
+              dateType={'end'}
+              dateText={'End Date'}
+              updateDate={this.updateEndDate}
+              selectedDate={this.state.end_date}
+            />
+          </View>
+          <Divider style={{ marginTop: 10, marginBottom: 10 }} />
+        </ScrollView>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  checkboxContainer: {
+  input: {
+    margin: 5,
+    color: '#191654'
+  },
+  textStyle: {
+    color: '#191654',
+    fontWeight: 'bold'
+  },
+  monthlyContainerStyle: {
+    justifyContent: 'center'
+  },
+  monthlyStyle: {
+    width: 200,
+    marginRight: 'auto',
+    marginLeft: 'auto'
+  },
+  recurTextStyle: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  endTextStyle: {
+    color: '#191654',
+    fontWeight: 'bold',
+    marginTop: 20
+  },
+  chooseIcon: {
+    flex: 1,
     flexDirection: 'row',
-    overflow: 'scroll',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    width: '90%',
+    alignItems: 'center'
+  },
+  chooseIconText: {
+    color: '#191654',
+    fontSize: 14.95,
+    fontWeight: '500'
   }
 });
 

@@ -1,36 +1,61 @@
 import React, { Component } from 'react';
-import { View, ScrollView } from 'react-native';
-import { connect } from 'react-redux';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Icon } from 'react-native-elements';
 
-import { IconPro } from './common';
+import { iconsList, iconColorsList } from '../helpers';
 
 class IconsPro extends Component {
   render() {
-    const icons = {
-      home: { name: 'home', color: '#191654' },
-      graduationcap: { name: 'graduation-cap', color: '#191654' },
-      gift: { name: 'gift', color: '#191654' },
-      fire: { name: 'fire', color: '#191654' },
-      flask: { name: 'flask', color: '#191654' },
-      eyedropper: { name: 'eyedropper', color: '#191654' },
-      eye: { name: 'eye', color: '#191654' },
-      rocket: { name: 'rocket', color: '#191654' },
-    };
     return (
       <View>
-        <ScrollView horizontal>
-          {
-            Object.keys(icons).map((name, index) =>
-            <IconPro
-              key={index}
-              iconName={icons[name].name}
-              iconColor={icons[name].color}
-            />)
-          }
-        </ScrollView>
+        <View style={styles.icons}>
+        {
+          iconColorsList.map((color, index) =>
+            <TouchableOpacity key={index} onPress={() => this.props.selectColor(color)}>
+              <View
+                style={[styles.circle, { backgroundColor: `${color}` }]}
+              />
+            </TouchableOpacity>
+          )
+        }
+        </View>
+        {
+          Object.keys(iconsList).map((iconKey, index) =>
+            <View key={index} style={styles.icons}>
+            {
+              iconsList[iconKey].map((icon, iconIndex) =>
+                <Icon
+                  key={iconIndex}
+                  name={icon.name}
+                  color={this.props.icon_color ? this.props.icon_color : icon.color}
+                  type={icon.type}
+                  onPress={() => this.props.selectIcon(icon.name)}
+                />
+              )
+            }
+            </View>
+          )
+        }
       </View>
     );
   }
 }
 
-export default connect(null, null)(IconsPro);
+const styles = StyleSheet.create({
+  icons: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginTop: 12
+  },
+  circle: {
+    width: 20,
+    height: 20,
+    borderRadius: 20 / 2,
+    borderColor: '#000000',
+    borderWidth: 1
+  }
+});
+
+export { IconsPro };

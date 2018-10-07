@@ -15,20 +15,20 @@ const saturday = require('../assets/s.png');
 const days = ['  Sun', '  Mon', '  Tue', '  Wed', '  Thu', '  Fri', '  Sat'];
 
 const presentDayIndex = new Date().getDay();
-days[presentDayIndex] = 'Today';
-let initialTab = 'Today';
+days[presentDayIndex] = ' Today';
+let initialTab = ' Today';
 
-if (days[0] === 'Today') {
+if (days[0] === ' Today') {
   initialTab = 'Sun';
-} else if (days[1] === 'Today') {
+} else if (days[1] === ' Today') {
   initialTab = 'Mon';
-} else if (days[2] === 'Today') {
+} else if (days[2] === ' Today') {
   initialTab = 'Tue';
-} else if (days[3] === 'Today') {
+} else if (days[3] === ' Today') {
   initialTab = 'Wed';
-} else if (days[4] === 'Today') {
+} else if (days[4] === ' Today') {
   initialTab = 'Thu';
-} else if (days[5] === 'Today') {
+} else if (days[5] === ' Today') {
   initialTab = 'Fri';
 } else {
   initialTab = 'Sat';

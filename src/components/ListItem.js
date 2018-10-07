@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Swipeout from 'react-native-swipeout';
 import { bindActionCreators } from 'redux';
 import { Icon } from 'react-native-elements';
+import { NavigationEvents } from 'react-navigation';
 import moment from 'moment';
 
 import { Separator } from './common';
@@ -28,10 +29,6 @@ class ListItem extends Component {
     this.state = {
       activeRow: null
     };
-  }
-
-  componentDidMount() {
-    this.props.getCurrentDayTasks(moment().add(this.props.dayIndex, 'day'));
   }
 
   onSwipeOpen(rowId, direction) {
@@ -136,11 +133,18 @@ class ListItem extends Component {
 
   render() {
     return (
-      <FlatList
-      data={this.props.tasks}
-      renderItem={this.renderItem}
-      keyExtractor={extractKey}
-      />
+      <View>
+        <NavigationEvents
+          onWillFocus={() => {
+            this.props.getCurrentDayTasks(moment().add(this.props.dayIndex, 'day'));
+          }}
+        />
+        <FlatList
+        data={this.props.tasks}
+        renderItem={this.renderItem}
+        keyExtractor={extractKey}
+        />
+      </View>
     );
   }
 }

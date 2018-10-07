@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ImageBackground, View, Alert } from 'react-native';
+import { ImageBackground, View, Alert, StyleSheet } from 'react-native';
 import {
   Container,
   Content,
@@ -17,17 +17,19 @@ import { bindActionCreators } from 'redux';
 import {
   getTasksByType,
   getCurrentDayTasks,
-  logoutUser
+  logoutUser,
+  getBadges
 } from '../actions';
 import proBackground from '../assets/pro-background.jpg';
 
-const mapStateToProps = ({ data }) => {
-  return data;
+const mapStateToProps = ({ data, auth }) => {
+  return { data, auth };
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   getCurrentDayTasks,
   getTasksByType,
+  getBadges,
   logoutUser
  }, dispatch);
 
@@ -55,15 +57,24 @@ class Sidebar extends Component {
 
   render() {
     const { navigator } = this.props;
+    const user = `${this.props.auth.first_name} ${this.props.auth.last_name} `;
+    console.log('user', this.props.data, this.props.auth);
     return (
-      <Container style={{ borderWidth: 0 }}>
-        <View>
-          <ImageBackground source={proBackground} style={{ height: '100%' }}>
-            <Header>
-              <Body>
-                <Title>proTracker</Title>
+      <Container>
+        <View style={styles.imageBackground}>
+          <ImageBackground
+            source={proBackground}
+            style={styles.imageBackground}
+          >
+            <View>
+            <Text>Welcome {user}</Text>
+            </View>
+              {/* <Body>
+                <View style={{ width: '100%' }}>
+                  <Title>proTracker</Title>
+                </View>
               </Body>
-            </Header>
+            </Header> */}
             <Content style={{ borderWidth: 0 }}>
               <ListItem
                 icon
@@ -79,7 +90,7 @@ class Sidebar extends Component {
                   </Button>
                 </Left>
                 <Body>
-                  <Text>Home</Text>
+                  <Text style={styles.text}>Home</Text>
                 </Body>
               </ListItem>
               <ListItem
@@ -96,7 +107,7 @@ class Sidebar extends Component {
                   </Button>
                 </Left>
                 <Body>
-                  <Text>Personal</Text>
+                  <Text style={styles.text}>Personal</Text>
                 </Body>
               </ListItem>
               <ListItem
@@ -113,19 +124,26 @@ class Sidebar extends Component {
                   </Button>
                 </Left>
                 <Body>
-                  <Text>Professional</Text>
+                  <Text style={styles.text}>Professional</Text>
                 </Body>
               </ListItem>
             </Content>
             <Content>
-              <ListItem icon>
+              <ListItem
+                icon
+                onPress={() => {
+                  this.props.getBadges();
+                  navigator.navigate('BadgeView');
+                  this.props.closeDrawer();
+                }}
+              >
                 <Left>
                   <Button style={{ backgroundColor: '#FF9501' }}>
                     <Icon active name="home" />
                   </Button>
                 </Left>
                 <Body>
-                  <Text>Notifications</Text>
+                  <Text style={styles.text}>Badges</Text>
                 </Body>
               </ListItem>
               <ListItem icon>
@@ -135,7 +153,7 @@ class Sidebar extends Component {
                   </Button>
                 </Left>
                 <Body>
-                  <Text>Invite Friends</Text>
+                  <Text style={styles.text}>Invite Friends</Text>
                 </Body>
               </ListItem>
               <ListItem icon>
@@ -145,11 +163,12 @@ class Sidebar extends Component {
                   </Button>
                 </Left>
                 <Body>
-                  <Text>Send Feedback</Text>
+                  <Text style={styles.text}>Send Feedback</Text>
                 </Body>
               </ListItem>
               <ListItem
                 icon
+                style={styles.text}
                 onPress={() => {
                   this.props.logoutUser();
                   navigator.navigate('Login');
@@ -161,7 +180,7 @@ class Sidebar extends Component {
                   </Button>
                 </Left>
                 <Body>
-                  <Text>Logout</Text>
+                  <Text style={styles.text}>Logout</Text>
                 </Body>
               </ListItem>
               <ListItem
@@ -174,7 +193,7 @@ class Sidebar extends Component {
                   </Button>
                 </Left>
                 <Body>
-                  <Text>Delete Account?</Text>
+                  <Text style={styles.text}>Delete Account?</Text>
                 </Body>
               </ListItem>
             </Content>
@@ -184,5 +203,18 @@ class Sidebar extends Component {
     );
   }
 }
+const styles = StyleSheet.create({
+  imageBackground: {
+    width: '100%',
+    height: '100%'
+  },
+  header: {
+    width: '100%',
+  },
+  text: {
+    color: '#ffffff'
+  }
+});
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

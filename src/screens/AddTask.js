@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView, ImageBackground } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import { Header, Input, Text, ListItem } from 'react-native-elements';
 
 import { taskCategory } from '../helpers';
-import proBackground from '../assets/pro-background.jpg';
 
 class AddTask extends Component {
   constructor(props) {
@@ -19,9 +18,7 @@ class AddTask extends Component {
   render() {
     const { navigation } = this.props;
     return (
-      <ScrollView>
-        <View>
-        {/* <ImageBackground source={proBackground} style={{ height: '130%' }}> */}
+      <View>
         <Header
           backgroundColor='#43C6AC'
           leftComponent={{
@@ -39,39 +36,43 @@ class AddTask extends Component {
             onPress: () => navigation.navigate('TaskForm', { task_name: this.state.task_name })
           }}
         />
-        <Input
-          placeholder='Write your task...'
-          inputStyle={styles.input}
-          leftIcon={{ type: 'font-awesome', name: 'pencil' }}
-          value={this.state.task_name}
-          onChangeText={this.onInputChange}
-        />
-        <View>
-          <Text style={styles.text}>Or choose from below..</Text>
-          {
-            taskCategory.map((item, index) =>
-              <ListItem
-                containerStyle={styles.container}
-                topDivider
-                bottomDivider
-                title={item.value}
-                titleStyle={styles.title}
-                chevron
-                bottomDivider
-                chevronColor={'#191654'}
-                leftIcon={{ name: 'beer', type: 'ionicon' }}
-                key={index}
-                onPress={() => navigation.navigate('SelectTask', {
-                  task_category: item.value,
-                  task_name: this.state.task_name
-                })}
-              />
-            )
-          }
-        </View>
-      {/* </ImageBackground> */}
-    </View>
-      </ScrollView>
+        <ScrollView style={{ height: '100%' }}>
+          <Input
+            placeholder='Write your task...'
+            inputStyle={styles.input}
+            leftIcon={{ type: 'font-awesome', name: 'pencil' }}
+            value={this.state.task_name}
+            onChangeText={this.onInputChange}
+          />
+          <View>
+            <Text style={styles.text}>Or choose from below..</Text>
+            {
+              taskCategory.map((item, index) =>
+                <ListItem
+                  containerStyle={styles.container}
+                  topDivider
+                  bottomDivider
+                  title={item.value}
+                  titleStyle={styles.title}
+                  chevron
+                  bottomDivider
+                  chevronColor={'#191654'}
+                  leftIcon={{
+                    name: `${item.icon}`,
+                    type: `${item.iconType}`,
+                    color: `${item.iconColor}`
+                  }}
+                  key={index}
+                  onPress={() => navigation.navigate('SelectTask', {
+                    task_category: item.value,
+                    task_name: this.state.task_name
+                  })}
+                />
+              )
+            }
+          </View>
+        </ScrollView>
+      </View>
     );
   }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ScrollView, View, StyleSheet, Text, TouchableHighlight } from 'react-native';
+import { ScrollView, View, StyleSheet, Text } from 'react-native';
 import { Header, Input, Divider, ButtonGroup, Icon } from 'react-native-elements';
 import moment from 'moment';
 
@@ -14,7 +14,8 @@ import {
   TimePicker,
   DatePickerPro,
   PickerPro,
-  OccurrenceCount } from '../components';
+  OccurrenceCount,
+  IconsPro } from '../components';
 import { createOneTask } from '../actions';
 
 const { RRule } = require('rrule');
@@ -230,284 +231,139 @@ class TaskForm extends Component {
               }
             }}
           />
-          <ScrollView>
-          <Input
-            placeholder='Write your task...'
-            leftIcon={{ type: 'font-awesome', name: 'pencil' }}
-            inputStyle={styles.input}
-            value={this.state.task_name}
-            onChangeText={this.onInputChange}
-          />
-          <ButtonGroupPro
-            buttonValues={['Personal', 'Professional']}
-            onButtonValueChange={this.onTaskTypeChange}
-          />
-          <ButtonGroup
-            buttons={[{ element: chooseIcon }]}
-            containerStyle={{ backgroundColor: '#43C6AC' }}
-            onPress={this.expandIconView}
-          />
-          { this.state.iconExpanded
-            ?
-            <View>
-              <View style={styles.icons}>
-                <TouchableHighlight onPress={() => this.selectColor('#98CE00')}>
-                  <View
-                    style={styles.circleShapeGreen}
-                  />
-                </TouchableHighlight>
-                <TouchableHighlight onPress={() => this.selectColor('#E83F6F')}>
-                  <View
-                    style={styles.circleShapeMagenta}
-                  />
-                </TouchableHighlight>
-                <TouchableHighlight onPress={() => this.selectColor('#FFD65C')}>
-                <View
-                  style={styles.circleShapeYellow}
-                />
-                </TouchableHighlight>
-                <TouchableHighlight onPress={() => this.selectColor('#FFFFFF')}>
-                <View
-                  style={styles.circleShapeWhite}
-                />
-                </TouchableHighlight>
-                <TouchableHighlight onPress={() => this.selectColor('#000000')}>
-                <View
-                  style={styles.circleShapeBlack}
-                />
-                </TouchableHighlight>
-                <TouchableHighlight onPress={() => this.selectColor('#800319')}>
-                <View
-                  style={styles.circleShapeRed}
-                />
-                </TouchableHighlight>
-              </View>
-              <View style={styles.icons}>
-                <Icon
-                  name='home'
-                  color={this.state.icon_color}
-                  onPress={() => this.selectIcon('home')}
-                />
-                <Icon
-                  name='graduation-cap'
-                  type='font-awesome'
-                  color={this.state.icon_color}
-                  onPress={() => this.selectIcon('graduation-cap', 'font-awesome')}
-                />
-                <Icon
-                  name='gift'
-                  type='font-awesome'
-                  color={this.state.icon_color}
-                  onPress={() => this.selectIcon('gift', 'font-awesome')}
-                />
-                <Icon
-                  name='fire'
-                  type='font-awesome'
-                  color={this.state.icon_color}
-                  onPress={() => this.selectIcon('fire', 'font-awesome')}
-                />
-                <Icon
-                  name='flask'
-                  type='font-awesome'
-                  color={this.state.icon_color}
-                  onPress={() => this.selectIcon('flask', 'font-awesome')}
-                />
-              </View>
-              <View style={styles.icons}>
-                <Icon
-                  name='build'
-                  color={this.state.icon_color}
-                  onPress={() => this.selectIcon('build')}
-                />
-                <Icon
-                  name='favorite'
-                  color={this.state.icon_color}
-                  onPress={() => this.selectIcon('favorite')}
-                />
-                <Icon
-                  name='flight'
-                  color={this.state.icon_color}
-                  onPress={() => this.selectIcon('flight')}
-                />
-                <Icon
-                  name='cake'
-                  color={this.state.icon_color}
-                  onPress={() => this.selectIcon('cake')}
-                />
-                <Icon
-                  name='mail'
-                  color={this.state.icon_color}
-                  onPress={() => this.selectIcon('mail')}
-                />
-              </View>
-              <View style={styles.icons}>
-                <Icon
-                  name='home'
-                  color={this.state.icon_color}
-                  onPress={() => this.selectIcon('home')}
-                />
-                <Icon
-                  name='graduation-cap'
-                  type='font-awesome'
-                  color={this.state.icon_color}
-                  onPress={() => this.selectIcon('graduation-cap', 'font-awesome')}
-                />
-                <Icon
-                  name='gift'
-                  type='font-awesome'
-                  color={this.state.icon_color}
-                  onPress={() => this.selectIcon('gift', 'font-awesome')}
-                />
-                <Icon
-                  name='fire'
-                  type='font-awesome'
-                  color={this.state.icon_color}
-                  onPress={() => this.selectIcon('fire', 'font-awesome')}
-                />
-                <Icon
-                  name='flask'
-                  type='font-awesome'
-                  color={this.state.icon_color}
-                  onPress={() => this.selectIcon('flask', 'font-awesome')}
-                />
-              </View>
-              <View style={styles.icons}>
-                <Icon
-                  name='build'
-                  color={this.state.icon_color}
-                  onPress={() => this.selectIcon('build')}
-                />
-                <Icon
-                  name='favorite'
-                  color={this.state.icon_color}
-                  onPress={() => this.selectIcon('favorite')}
-                />
-                <Icon
-                  name='flight'
-                  color={this.state.icon_color}
-                  onPress={() => this.selectIcon('flight')}
-                />
-                <Icon
-                  name='cake'
-                  color={this.state.icon_color}
-                  onPress={() => this.selectIcon('cake')}
-                />
-                <Icon
-                  name='pool'
-                  color={this.state.icon_color}
-                  onPress={() => this.selectIcon('pool')}
-                />
-              </View>
-            </View>
-            : ''
-          }
-          <View>
-            <TimePicker
-              updateTime={this.updateTime}
+          <ScrollView style={{ height: '100%' }}>
+            <Input
+              placeholder='Write your task...'
+              leftIcon={{ type: 'font-awesome', name: 'pencil' }}
+              inputStyle={styles.input}
+              value={this.state.task_name}
+              onChangeText={this.onInputChange}
             />
-          </View>
-          <Divider style={{ marginTop: 10, marginBottom: 10 }} />
-          <View>
             <ButtonGroupPro
-              buttonValues={['Single Event', 'Repeated Events']}
-              onButtonValueChange={this.onEventTypeChange}
+              buttonValues={['Personal', 'Professional']}
+              onButtonValueChange={this.onTaskTypeChange}
             />
-          </View>
-          <Divider style={{ marginTop: 10, marginBottom: 10 }} />
-          { this.state.event_type === 'Repeated Events'
-            ?
-              (<View>
-                <View>
-                  <RadioButtonPro
-                    radioProps={this.state.radioProps}
-                    updateFrequency={this.updateFrequency}
-                  />
-                </View>
-                <Divider style={{ marginTop: 10, marginBottom: 10 }} />
-                { this.state.frequency === 'DAILY'
-                  ?
-                    (<View>
-                      <IntervalInput
-                        frequency={this.state.frequency}
-                        dailyRecur={this.state.interval}
-                        updateInterval={this.updateInterval}
-                      />
-                    </View>)
-                  : ''
-                }
-                { this.state.frequency === 'WEEKLY'
-                  ?
-                    (<View>
-                      <View>
-                        <CheckBoxPro updateByDay={this.updateByDay} />
-                      </View>
-                      <Divider style={{ marginTop: 10, marginBottom: 10 }} />
-                      <IntervalInput
-                        frequency={this.state.frequency}
-                        dailyRecur={this.state.interval}
-                        updateInterval={this.updateInterval}
-                      />
-                    </View>)
-                  : ''
-                }
-                { this.state.frequency === 'MONTHLY'
-                  ?
-                    (<View flex center>
-                      <View style={styles.monthlyStyle}>
-                        <View style={styles.recurTextStyle}>
-                          <Text style={styles.textStyle}>Recur</Text>
-                        </View>
-                        <PickerPro
-                          pickerValues={pickerValues}
-                          pickerValueChange={this.pickerValueChange}
-                        />
+            <ButtonGroup
+              buttons={[{ element: chooseIcon }]}
+              containerStyle={{ backgroundColor: '#43C6AC' }}
+              onPress={this.expandIconView}
+            />
+            { this.state.iconExpanded
+              ?
+              <IconsPro
+                icon_color={this.state.icon_color}
+                selectIcon={this.selectIcon}
+                selectColor={this.selectColor}
+              />
+              : ''
+            }
+            <View>
+              <TimePicker
+                updateTime={this.updateTime}
+              />
+            </View>
+            <Divider style={{ marginTop: 10, marginBottom: 10 }} />
+            <View>
+              <ButtonGroupPro
+                buttonValues={['Single Event', 'Repeated Events']}
+                onButtonValueChange={this.onEventTypeChange}
+              />
+            </View>
+            <Divider style={{ marginTop: 10, marginBottom: 10 }} />
+            { this.state.event_type === 'Repeated Events'
+              ?
+                (<View>
+                  <View>
+                    <RadioButtonPro
+                      radioProps={this.state.radioProps}
+                      updateFrequency={this.updateFrequency}
+                    />
+                  </View>
+                  <Divider style={{ marginTop: 10, marginBottom: 10 }} />
+                  { this.state.frequency === 'DAILY'
+                    ?
+                      (<View>
                         <IntervalInput
                           frequency={this.state.frequency}
                           dailyRecur={this.state.interval}
                           updateInterval={this.updateInterval}
                         />
-                      </View>
-                    </View>)
-                  : ''
-                }
-                <Divider style={{ marginTop: 10, marginBottom: 10 }} />
-              </View>)
-            : ''
-          }
-          <View>
-            <DatePickerPro
-              dateType={'start'}
-              dateText={'Start Date'}
-              updateDate={this.updateStartDate}
-            />
-          </View>
-          <Divider style={{ marginTop: 10, marginBottom: 10 }} />
-          <View>
-            { this.state.event_type === 'Repeated Events'
-              ?
-              <View>
-                <View>
-                  <OccurrenceCount
-                    updateOccurrences={this.updateOccurrences}
-                  />
-                </View>
-                <View style={styles.recurTextStyle}>
-                  <Text style={styles.endTextStyle}>
-                    --------OR--------
-                  </Text>
-                </View>
-              </View>
+                      </View>)
+                    : ''
+                  }
+                  { this.state.frequency === 'WEEKLY'
+                    ?
+                      (<View>
+                        <View>
+                          <CheckBoxPro updateByDay={this.updateByDay} />
+                        </View>
+                        <Divider style={{ marginTop: 10, marginBottom: 10 }} />
+                        <IntervalInput
+                          frequency={this.state.frequency}
+                          dailyRecur={this.state.interval}
+                          updateInterval={this.updateInterval}
+                        />
+                      </View>)
+                    : ''
+                  }
+                  { this.state.frequency === 'MONTHLY'
+                    ?
+                      (<View flex center>
+                        <View style={styles.monthlyStyle}>
+                          <View style={styles.recurTextStyle}>
+                            <Text style={styles.textStyle}>Recur</Text>
+                          </View>
+                          <PickerPro
+                            pickerValues={pickerValues}
+                            pickerValueChange={this.pickerValueChange}
+                          />
+                          <IntervalInput
+                            frequency={this.state.frequency}
+                            dailyRecur={this.state.interval}
+                            updateInterval={this.updateInterval}
+                          />
+                        </View>
+                      </View>)
+                    : ''
+                  }
+                  <Divider style={{ marginTop: 10, marginBottom: 10 }} />
+                </View>)
               : ''
             }
-            <DatePickerPro
-              dateType={'end'}
-              dateText={'End Date'}
-              updateDate={this.updateEndDate}
-            />
-          </View>
-          <Divider style={{ marginTop: 10, marginBottom: 10 }} />
-        </ScrollView>
-      </View>
+            <View>
+              <DatePickerPro
+                dateType={'start'}
+                dateText={'Start Date'}
+                updateDate={this.updateStartDate}
+              />
+            </View>
+            <Divider style={{ marginTop: 10, marginBottom: 10 }} />
+            <View>
+              { this.state.event_type === 'Repeated Events'
+                ?
+                <View>
+                  <View>
+                    <OccurrenceCount
+                      updateOccurrences={this.updateOccurrences}
+                    />
+                  </View>
+                  <View style={styles.recurTextStyle}>
+                    <Text style={styles.endTextStyle}>
+                      --------OR--------
+                    </Text>
+                  </View>
+                </View>
+                : ''
+              }
+              <DatePickerPro
+                dateType={'end'}
+                dateText={'End Date'}
+                updateDate={this.updateEndDate}
+              />
+            </View>
+            <Divider style={{ marginTop: 10, marginBottom: 10 }} />
+          </ScrollView>
+        </View>
       );
     }
 }
@@ -549,49 +405,6 @@ const styles = StyleSheet.create({
     color: '#191654',
     fontSize: 14.95,
     fontWeight: '500'
-  },
-  icons: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    marginTop: 12
-  },
-  circleShapeGreen: {
-    width: 20,
-    height: 20,
-    borderRadius: 20 / 2,
-    backgroundColor: '#98CE00'
-  },
-  circleShapeMagenta: {
-    width: 20,
-    height: 20,
-    borderRadius: 20 / 2,
-    backgroundColor: '#E83F6F'
-  },
-  circleShapeYellow: {
-    width: 20,
-    height: 20,
-    borderRadius: 20 / 2,
-    backgroundColor: '#FFD65C'
-  },
-  circleShapeWhite: {
-    width: 20,
-    height: 20,
-    borderRadius: 20 / 2,
-    backgroundColor: '#FFFFFF'
-  },
-  circleShapeBlack: {
-    width: 20,
-    height: 20,
-    borderRadius: 20 / 2,
-    backgroundColor: '#000000'
-  },
-  circleShapeRed: {
-    width: 20,
-    height: 20,
-    borderRadius: 20 / 2,
-    backgroundColor: '#800319'
   }
 });
 
