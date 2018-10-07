@@ -83,7 +83,7 @@ class TaskView extends Component {
     const { navigation } = this.props;
     const dataArray = [
       { title: 'Progress', content: <CircularProgressPro style={{ width: '100%' }} /> },
-      { title: 'Bar Chart', content: <BarChartPro style={{ width: '100%' }} /> },
+      // { title: 'Bar Chart', content: <BarChartPro style={{ width: '100%' }} /> },
     ];
     return (
       <Drawer
@@ -128,15 +128,17 @@ class TaskView extends Component {
           }}
           firstDay={1}
         />
-        <Text>
-          {
-            this.props.task.r_rule ? RRule.fromString(this.props.task.r_rule).toText() : ''}
-        </Text>
+        <View style={styles.rruleView}>
+          <Text style={styles.rruleText}>
+            {
+              this.props.task.r_rule ? RRule.fromString(this.props.task.r_rule).toText() : ''}
+          </Text>
+        </View>
       </View>
-      <AccordionPro
-        dataArray={dataArray}
-        index={0}
-      />
+        <AccordionPro
+          dataArray={dataArray}
+          index={0}
+        />
       {/* <BarChartPro /> */}
     </Drawer>
     );
@@ -173,8 +175,17 @@ const styles = {
         borderWidth: 0.5,
         borderColor: 'blue'
       }
-    },
+    }
+  },
+  rruleView: {
+    alignItems: 'center',
+    margin: '3%'
+  },
+  rruleText: {
+    color: '#191654',
+    fontWeight: 'bold'
   }
+
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskView);

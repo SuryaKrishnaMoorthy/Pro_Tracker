@@ -99,7 +99,9 @@ class ListItem extends Component {
         onOpen={(secId, rowId, direction) => this.onSwipeOpen(rowId, direction)}
         onClose={(secId, rowId, direction) => this.onSwipeClose(rowId, direction)}
       >
-      <TouchableHighlight>
+      <TouchableHighlight
+        onPress={() => this.props.navigation('TaskView', { id: item.id })}
+      >
         <View style={styles.container}>
           {
             item.icon_name
@@ -118,12 +120,28 @@ class ListItem extends Component {
           <Text
             key={item.id}
             style={styles.row}
-            onPress={() => this.props.navigation('TaskView', {
-              id: item.id
-            })}
           >
             {item.task_name}
           </Text>
+          {
+            item.taskStatus && item.taskStatus.findIndex(status =>
+              status.task_date.includes(moment()
+              .add(this.props.dayIndex, 'day').format('YYYY-MM-DD'))) > -1
+            ?
+              <View style={{ marginLeft: 'auto' }}>
+                <Icon
+                  containerStyle={styles.iconContainerStyle}
+                  name={'done'}
+                  type={'material-icons'}
+                  color={'#006400'}
+                  size={35}
+                  onPress={() => this.props.navigation('TaskView', {
+                    id: item.id
+                  })}
+                />
+              </View>
+            : ''
+          }
         </View>
       </TouchableHighlight>
       <Separator />
@@ -154,7 +172,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#93CEC8'
+    backgroundColor: '#93CEC8',
+    width: '100%'
   },
   iconContainerStyle: {
     marginLeft: '3%'

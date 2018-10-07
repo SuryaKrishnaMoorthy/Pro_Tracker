@@ -11,6 +11,7 @@ export const CLEAR_ERROR = 'clear_error';
 export const LOGIN_USER = 'login_user';
 export const LOGOUT = 'logout';
 export const DELETE_USER = 'delete_user';
+export const GET_USER = 'get_user';
 
 export const GET_CURRENT_DAY_TASKS = 'get_current_day_tasks';
 export const GET_TASKS_BY_TYPE = 'get_tasks_by_type';

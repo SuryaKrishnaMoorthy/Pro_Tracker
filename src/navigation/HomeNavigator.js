@@ -44,7 +44,7 @@ export default createMaterialBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: days[0],
       tabBarIcon: <Icon><Image source={sunday} /></Icon>,
-      tabBarColor: '#17BCAE'
+      tabBarColor: '#30416B'
     }
   },
   Mon: {
@@ -68,7 +68,7 @@ export default createMaterialBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: days[2],
       tabBarIcon: <Icon><Image source={tuesday} /></Icon>,
-      tabBarColor: '#17BCAE'
+      tabBarColor: '#30416B'
     }
   },
   Wed: {
@@ -92,7 +92,7 @@ export default createMaterialBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: days[4],
       tabBarIcon: <Icon><Image source={thursday} /></Icon>,
-      tabBarColor: '#17BCAE'
+      tabBarColor: '#30416B'
     }
   },
   Fri: {
@@ -116,12 +116,12 @@ export default createMaterialBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: days[6],
       tabBarIcon: <Icon><Image source={saturday} /></Icon>,
-      tabBarColor: '#17BCAE'
+      tabBarColor: '#30416B'
     }
   }
 }, {
   initialRouteName: initialTab,
-  activeColor: '#80ff00',
+  activeColor: '#ffffff',
   inactiveColor: '#ffffff',
   barStyle: {
     backgroundColor: '#17BCAE'

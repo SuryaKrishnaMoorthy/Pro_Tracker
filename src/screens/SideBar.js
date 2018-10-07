@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import { ImageBackground, View, Alert, StyleSheet } from 'react-native';
+import { ImageBackground, View, Alert, StyleSheet, ScrollView } from 'react-native';
 import {
   Container,
   Content,
   ListItem,
   Text,
-  Icon,
   Left,
   Body,
-  Button,
-  Header,
-  Title } from 'native-base';
+  Button
+} from 'native-base';
+import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -58,23 +57,16 @@ class Sidebar extends Component {
   render() {
     const { navigator } = this.props;
     const user = `${this.props.auth.first_name} ${this.props.auth.last_name} `;
-    console.log('user', this.props.data, this.props.auth);
     return (
       <Container>
         <View style={styles.imageBackground}>
+          <View style={styles.welcomeView}>
+            <Text style={styles.welcomeText}>Welcome {user}</Text>
+          </View>
           <ImageBackground
             source={proBackground}
             style={styles.imageBackground}
           >
-            <View>
-            <Text>Welcome {user}</Text>
-            </View>
-              {/* <Body>
-                <View style={{ width: '100%' }}>
-                  <Title>proTracker</Title>
-                </View>
-              </Body>
-            </Header> */}
             <Content style={{ borderWidth: 0 }}>
               <ListItem
                 icon
@@ -85,8 +77,11 @@ class Sidebar extends Component {
                 }}
               >
                 <Left>
-                  <Button style={{ backgroundColor: '#FF9501' }}>
-                    <Icon active name="home" />
+                  <Button>
+                    <Icon
+                      active
+                      name="home"
+                    />
                   </Button>
                 </Left>
                 <Body>
@@ -97,37 +92,50 @@ class Sidebar extends Component {
                 icon
                 onPress={() => {
                   this.props.getTasksByType('personal');
-                  navigator.navigate('HomeNavigator');
+                  navigator.navigate('HomeNavigator', {
+                    currentPage: 'Personal Tasks'
+                  });
                   this.props.closeDrawer();
                 }}
               >
                 <Left>
-                  <Button style={{ backgroundColor: '#007AFF' }}>
-                    <Icon active name='list' />
+                  <Button style={{ backgroundColor: '#d26e63' }}>
+                    <Icon
+                      active
+                      name='list'
+                    />
                   </Button>
                 </Left>
                 <Body>
-                  <Text style={styles.text}>Personal</Text>
+                  <Text style={styles.text}>Personal Tasks</Text>
                 </Body>
               </ListItem>
               <ListItem
                 icon
                 onPress={() => {
                   this.props.getTasksByType('professional');
-                  navigator.navigate('HomeNavigator');
+                  navigator.navigate('HomeNavigator', {
+                    currentPage: 'Professional Tasks'
+                  });
                   this.props.closeDrawer();
                 }}
               >
                 <Left>
-                  <Button style={{ backgroundColor: '#007AFF' }}>
-                    <Icon active name="list" />
+                  <Button style={{ backgroundColor: '#161a5b' }}>
+                    <Icon
+                      active
+                      name="laptop"
+                      type="font-awesome"
+                      color='#DBCDC6'
+                    />
                   </Button>
                 </Left>
                 <Body>
-                  <Text style={styles.text}>Professional</Text>
+                  <Text style={styles.text}>Professional Tasks</Text>
                 </Body>
               </ListItem>
             </Content>
+            <ScrollView>
             <Content>
               <ListItem
                 icon
@@ -139,7 +147,7 @@ class Sidebar extends Component {
               >
                 <Left>
                   <Button style={{ backgroundColor: '#FF9501' }}>
-                    <Icon active name="home" />
+                    <Icon active color='#517fa4' name="star" />
                   </Button>
                 </Left>
                 <Body>
@@ -148,7 +156,7 @@ class Sidebar extends Component {
               </ListItem>
               <ListItem icon>
                 <Left>
-                  <Button style={{ backgroundColor: '#007AFF' }}>
+                  <Button style={{ backgroundColor: '#7c3f82' }}>
                     <Icon active name='people' />
                   </Button>
                 </Left>
@@ -158,7 +166,7 @@ class Sidebar extends Component {
               </ListItem>
               <ListItem icon>
                 <Left>
-                  <Button style={{ backgroundColor: '#007AFF' }}>
+                  <Button style={{ backgroundColor: '#57bc18' }}>
                     <Icon active name="send" />
                   </Button>
                 </Left>
@@ -168,7 +176,6 @@ class Sidebar extends Component {
               </ListItem>
               <ListItem
                 icon
-                style={styles.text}
                 onPress={() => {
                   this.props.logoutUser();
                   navigator.navigate('Login');
@@ -176,7 +183,7 @@ class Sidebar extends Component {
               >
                 <Left>
                   <Button style={{ backgroundColor: '#007AFF' }}>
-                    <Icon active name="home" />
+                    <Icon name="exit-to-app" type='material-icons' />
                   </Button>
                 </Left>
                 <Body>
@@ -188,8 +195,12 @@ class Sidebar extends Component {
                 onPress={() => this.handleDelete()}
               >
                 <Left>
-                  <Button style={{ backgroundColor: '#007AFF' }}>
-                    <Icon active name="home" />
+                  <Button style={{ backgroundColor: '#561f42' }}>
+                    <Icon
+                      color='#DBCDC6'
+                      name="minus-circle"
+                      type='font-awesome'
+                    />
                   </Button>
                 </Left>
                 <Body>
@@ -197,6 +208,7 @@ class Sidebar extends Component {
                 </Body>
               </ListItem>
             </Content>
+          </ScrollView>
           </ImageBackground>
         </View>
       </Container>
@@ -204,17 +216,25 @@ class Sidebar extends Component {
   }
 }
 const styles = StyleSheet.create({
+  welcomeView: {
+    height: '20%',
+    alignItems: 'center',
+    backgroundColor: '#191654',
+    width: '100%'
+  },
+  welcomeText: {
+    marginTop: '15%',
+    color: '#ffffff',
+    fontWeight: 'bold',
+    fontSize: 15
+  },
   imageBackground: {
     width: '100%',
     height: '100%'
-  },
-  header: {
-    width: '100%',
   },
   text: {
     color: '#ffffff'
   }
 });
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

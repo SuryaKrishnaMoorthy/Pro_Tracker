@@ -72,7 +72,7 @@ const iconsList = {
 };
 
 const iconColorsList = [
-  '#98CE00',
+  '#006400',
   '#E83F6F',
   '#FFD65C',
   '#FFFFFF',

@@ -29,7 +29,7 @@ class IconsPro extends Component {
                   name={icon.name}
                   color={this.props.icon_color ? this.props.icon_color : icon.color}
                   type={icon.type}
-                  onPress={() => this.props.selectIcon(icon.name)}
+                  onPress={() => this.props.selectIcon(icon.name, icon.type)}
                 />
               )
             }

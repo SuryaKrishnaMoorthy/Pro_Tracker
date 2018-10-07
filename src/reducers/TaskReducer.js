@@ -44,7 +44,9 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         : state.task.currentScore;
         const task = { ...state.task,
           current_score: currentScore,
-          taskStatus: state.task.taskStatus.concat(payload.task_status) };
+          taskStatus: state.task.taskStatus
+          ? state.task.taskStatus.concat(payload.task_status)
+          : payload.task_status };
         return { ...state, task };
       }
     case DELETE_ONE_STATUS:

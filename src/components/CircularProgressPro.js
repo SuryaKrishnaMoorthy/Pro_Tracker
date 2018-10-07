@@ -31,37 +31,39 @@ class CircularProgressPro extends Component {
     const fillValue = (current_score / total_score) * 100;
 
     return (
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <View style={{ width: '33.3%' }}>
-          <Text style={styles.scoreText}>
-            { this.progressMessage(fillValue) }
-          </Text>
+      <View>
+        <View style={styles.progressTextAndCircle}>
+          <View style={styles.progressTextView}>
+            <Text style={styles.scoreText}>
+              { this.progressMessage(fillValue) }
+            </Text>
+          </View>
+          <View style={styles.animatedCircle}>
+            <AnimatedCircularProgress
+              size={120}
+              width={14}
+              fill={fillValue || 0}
+              tintColor="#43C6AC"
+              onAnimationComplete={() => console.log('onAnimationComplete')}
+              backgroundColor="#3d5875"
+              duration={1000}
+              rotation={0}
+              lineCap="round"
+            >
+              {
+                (fill) => (
+                  <Text>
+                     { parseFloat(fill).toFixed(2) % 1 === 0 ?
+                        parseFloat(fill).toFixed(0) :
+                        parseFloat(fill).toFixed(2)
+                      }%
+                  </Text>
+                )
+              }
+            </AnimatedCircularProgress>
+          </View>
         </View>
-        <View>
-          <AnimatedCircularProgress
-            size={120}
-            width={14}
-            fill={fillValue || 0}
-            tintColor="#43C6AC"
-            onAnimationComplete={() => console.log('onAnimationComplete')}
-            backgroundColor="#3d5875"
-            duration={1000}
-            rotation={0}
-            lineCap="round"
-          >
-            {
-              (fill) => (
-                <Text>
-                   { parseFloat(fill).toFixed(2) % 1 === 0 ?
-                      parseFloat(fill).toFixed(0) :
-                      parseFloat(fill).toFixed(2)
-                    }%
-                </Text>
-              )
-            }
-          </AnimatedCircularProgress>
-        </View>
-        <View style={{ width: '33.3%' }} >
+        <View style={{ flexDirection: 'row' }} >
           <Text style={styles.scoreText}>
             Current Score: { current_score }
           </Text>
@@ -75,9 +77,22 @@ class CircularProgressPro extends Component {
 }
 
 const styles = StyleSheet.create({
+  progressTextAndCircle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
   scoreText: {
+    color: '#191654',
+    fontWeight: 'bold',
+    marginLeft: '5%'
+  },
+  progressTextView: {
     marginTop: '20%',
-    marginLeft: '10%'
+    marginLeft: '3%',
+  },
+  animatedCircle: {
+    marginTop: '8%',
+    marginRight: '30%',
   }
 });
 

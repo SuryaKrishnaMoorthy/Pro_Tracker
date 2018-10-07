@@ -1,4 +1,5 @@
-import { signUpRequest, loginRequest, logoutRequest, deleteUserRequest } from '../requests';
+import { signUpRequest, loginRequest, logoutRequest,
+   deleteUserRequest, getUserRequest } from '../requests';
 import {
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
@@ -12,6 +13,7 @@ import {
   CLEAR_ERROR,
   LOGIN_USER,
   LOGOUT,
+  GET_USER,
   DELETE_USER
 } from './types';
 
@@ -47,6 +49,7 @@ export const signUpUser = (body) => {
       const token = await signUpRequest(body);
       if (token) {
         loginUserSuccess(dispatch, token);
+        getUser(dispatch);
       } else {
         signUpUserFail(dispatch);
       }
@@ -63,6 +66,7 @@ export const loginUser = ({ email, password }) => {
       const token = await loginRequest({ email, password });
       if (token) {
         loginUserSuccess(dispatch, token);
+        getUser(dispatch);
       } else {
         loginUserFail(dispatch);
       }
@@ -70,6 +74,11 @@ export const loginUser = ({ email, password }) => {
       loginUserFail(dispatch);
     }
   };
+};
+
+const getUser = async (dispatch) => {
+    const response = await getUserRequest();
+    dispatch({ type: GET_USER, payload: response.data });
 };
 
 export const logoutUser = () => {

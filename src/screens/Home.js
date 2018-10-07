@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import { ScrollView, ImageBackground, Text, StyleSheet, View } from 'react-native';
+// import { connect } from 'react-redux';
 import { Header } from 'react-native-elements';
 import ListItem from '../components/ListItem';
+
+// const mapStateToProps = ({ data }) => ({ data });
 
 class HomeScreen extends Component {
 
   render() {
     const { navigation } = this.props;
+    const page = navigation.getParam('currentPage')
+        ?
+        navigation.getParam('currentPage')
+        : 'Home';
     const imageSource = { uri: 'https://images.unsplash.com/photo-1531095955519-cb8fe8df6272?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=28869ebefb72f1b3e47deefa10c8edec&auto=format&fit=crop&w=1650&q=80' };
     return (
       <View>
@@ -17,7 +24,10 @@ class HomeScreen extends Component {
             color: '#191654',
             onPress: () => this.props.openDrawer()
           }}
-          centerComponent={{ text: 'Home', style: { color: '#191654', fontWeight: 'bold' } }}
+          centerComponent={{
+            text: `${page}`,
+            style: { color: '#191654', fontWeight: 'bold' }
+          }}
           rightComponent={{
             icon: 'add',
             color: '#191654',

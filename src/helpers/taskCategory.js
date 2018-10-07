@@ -85,7 +85,7 @@ const events = [
     iconType: '',
     icon: 'wc',
     value: 'Wedding'
-  }
+  },
 ];
 
 const home = [

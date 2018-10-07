@@ -11,6 +11,7 @@ import {
   LOGIN_USER_FAIL,
   CLEAR_ERROR,
   LOGOUT,
+  GET_USER,
   DELETE_USER
  } from '../actions/types';
 
@@ -44,6 +45,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, loading: true, error: '' };
     case LOGIN_USER_SUCCESS:
       return { ...state, ...INITIAL_STATE, token: action.payload, loading: false, loggedIn: true };
+    case GET_USER:
+      return { ...state, ...action.payload };
     case LOGIN_USER_FAIL:
       return {
         ...state, ...INITIAL_STATE, error: 'Authentication Failed', loading: false };
