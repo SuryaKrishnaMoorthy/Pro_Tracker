@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image, ImageBackground } from 'react-native';
 import { Header } from 'react-native-elements';
 import { Icon, Badge, ListItem, Body, Left, Drawer, Center, Right } from 'native-base';
 
@@ -10,7 +10,7 @@ import { getBadges } from '../actions';
 
 const lock = require('../assets/badges/locksilver.png');
 const bronze = require('../assets/badges/bronze.png');
-const diamond = require('../assets/badges/diamond1.png');
+const diamond = require('../assets/badges/diamond.png');
 const platinum = require('../assets/badges/platinum.png');
 const garnet = require('../assets/badges/garnet.png');
 const gold = require('../assets/badges/gold.png');
@@ -47,6 +47,7 @@ class BadgeView extends Component {
 
   render() {
     const { id, user_id, created_at, updated_at, score, ...badgeNumber } = this.props.badges;
+    const imageSource = { uri: 'https://images.techhive.com/images/article/2017/04/success-ts-100716968-large.jpg' };
     return (
       <Drawer
         ref={(ref) => { this.drawer = ref; }}
@@ -57,7 +58,6 @@ class BadgeView extends Component {
         />}
         onClose={() => this.closeDrawer()}
       >
-      <ScrollView>
         <Header
           backgroundColor='#43C6AC'
           leftComponent={{
@@ -72,6 +72,9 @@ class BadgeView extends Component {
             onPress: () => this.props.navigation.navigate('HomeNavigator')
            }}
         />
+        <ImageBackground source={imageSource} style={{ height: 300 }} />
+
+      <ScrollView>
         <View>
           <Text style={styles.title}>Badges Earned</Text>
         </View>
@@ -156,7 +159,7 @@ const styles = StyleSheet.create({
     height: '100%'
   },
   title: {
-    marginTop: '90%',
+    // marginTop: '90%',
     marginBottom: '10%',
     alignSelf: 'center',
     color: '#191654',

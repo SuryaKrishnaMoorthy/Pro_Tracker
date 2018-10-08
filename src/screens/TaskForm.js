@@ -122,7 +122,6 @@ class TaskForm extends Component {
 
   onTaskTypeChange = (value) => {
     this.setState({ task_type: value });
-    console.log(this.state);
   }
 
   onEventTypeChange = (value) => {
