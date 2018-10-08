@@ -55,6 +55,7 @@ class EditTaskForm extends Component {
       : '31',
       iconExpanded: false,
       ...task,
+      task_type: task.task_type.charAt(0).toUpperCase()
     };
   }
 
@@ -126,8 +127,7 @@ class EditTaskForm extends Component {
   }
 
   onTaskTypeChange = (value) => {
-    this.setState({ task_type: value });
-    console.log(this.state);
+    this.setState({ task_type: value.toLowerCase() });
   }
 
   onEventTypeChange = (value) => {

@@ -121,7 +121,7 @@ class TaskForm extends Component {
   }
 
   onTaskTypeChange = (value) => {
-    this.setState({ task_type: value });
+    this.setState({ task_type: value.toLowerCase() });
   }
 
   onEventTypeChange = (value) => {

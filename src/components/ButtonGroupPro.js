@@ -18,7 +18,6 @@ class ButtonGroupPro extends Component {
 
   render() {
     const { selectedIndex } = this.state;
-
     return (
       <ButtonGroup
         selectedButtonStyle={styles.selectedButtonStyle}
