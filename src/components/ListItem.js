@@ -82,7 +82,7 @@ class ListItem extends Component {
     const swipeBtnLeft = [
       {
         text: 'Complete',
-        backgroundColor: 'rgb(138, 197, 147)',
+        backgroundColor: 'rgb(17, 204, 107)',
         onPress: () => this.handleComplete(item)
       }
     ];
