@@ -1,4 +1,5 @@
 import {
+   getAllTasksRequest,
    getCurrentDayTasksRequest,
    getTasksByTypeRequest,
    getOneTaskRequest,
@@ -7,6 +8,7 @@ import {
    deleteOneTaskRequest
  } from '../requests';
 import {
+  GET_ALL_TASKS,
   GET_CURRENT_DAY_TASKS,
   GET_TASKS_BY_TYPE,
   GET_ONE_TASK,
@@ -17,6 +19,13 @@ export const getCurrentDayTasks = (dateParams) => {
   return async (dispatch) => {
     const payload = await getCurrentDayTasksRequest(dateParams);
     dispatch({ type: GET_CURRENT_DAY_TASKS, payload });
+  };
+};
+
+export const getAllTasks = () => {
+  return async (dispatch) => {
+    const payload = await getAllTasksRequest();
+    dispatch({ type: GET_ALL_TASKS, payload });
   };
 };
 

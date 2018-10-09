@@ -13,7 +13,7 @@ class HomeScreen extends Component {
     const page = navigation.getParam('currentPage')
         ?
         navigation.getParam('currentPage')
-        : 'Home';
+        : 'My Home';
     const imageSource = { uri: 'https://images.unsplash.com/photo-1531095955519-cb8fe8df6272?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=28869ebefb72f1b3e47deefa10c8edec&auto=format&fit=crop&w=1650&q=80' };
     return (
       <View>

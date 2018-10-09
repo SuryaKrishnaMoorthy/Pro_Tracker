@@ -4,9 +4,11 @@ import { bindActionCreators } from 'redux';
 import { StyleSheet, Text, View, ScrollView, Image, ImageBackground } from 'react-native';
 import { Header } from 'react-native-elements';
 import { Icon, Badge, ListItem, Body, Left, Drawer, Center, Right } from 'native-base';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 import Sidebar from './Sidebar';
-import { getBadges } from '../actions';
+import { getBadges, getAllTasks } from '../actions';
+import { buildStreakObj } from '../helpers';
 
 const lock = require('../assets/badges/locksilver.png');
 const bronze = require('../assets/badges/bronze.png');
@@ -33,10 +35,14 @@ const badgeImages = {
   garnet: { img: garnet, value: 50000 },
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ getBadges }, dispatch);
-const mapStateToProps = ({ badges }) => badges;
+const mapDispatchToProps = dispatch => bindActionCreators({ getBadges, getAllTasks }, dispatch);
+const mapStateToProps = ({ badges, data }) => ({ badges, data });
 
 class BadgeView extends Component {
+  async componentDidMount() {
+    await this.props.getAllTasks();
+  }
+
   closeDrawer = () => {
     if (this.drawer) this.drawer._root.close();
   };
@@ -46,8 +52,11 @@ class BadgeView extends Component {
   };
 
   render() {
-    const { id, user_id, created_at, updated_at, score, ...badgeNumber } = this.props.badges;
-    const imageSource = { uri: 'https://images.techhive.com/images/article/2017/04/success-ts-100716968-large.jpg' };
+    const { id, user_id, created_at, updated_at, score, ...badgeNumber } = this.props.badges.badges;
+
+    const topStreaks = buildStreakObj(this.props.data.allTasks);
+
+    // const imageSource = { uri: 'https://images.techhive.com/images/article/2017/04/success-ts-100716968-large.jpg' };
     return (
       <Drawer
         ref={(ref) => { this.drawer = ref; }}
@@ -65,20 +74,58 @@ class BadgeView extends Component {
             color: '#191654',
             onPress: () => this.openDrawer()
           }}
-          centerComponent={{ text: 'My Badges', style: { color: '#191654' } }}
+          centerComponent={{ text: 'My Badges', style: { color: '#191654', fontWeight: 'bold' } }}
           rightComponent={{
             icon: 'home',
             color: '#191654',
             onPress: () => this.props.navigation.navigate('HomeNavigator')
            }}
         />
-        <ImageBackground source={imageSource} style={{ height: 300 }} />
-
+        {/* <ImageBackground source={imageSource} style={{ height: 300 }} /> */}
+        <View>
+          <Text style={styles.progressTitle}>Your most consistent tasks are...</Text>
+        </View>
+        <View style={styles.progressView}>
+        {
+          topStreaks.map((streakObj, index) => {
+            return (
+              <View
+                key={index}
+                style={styles.oneAnimatedView}
+              >
+              <AnimatedCircularProgress
+              size={100}
+              width={20}
+              fill={streakObj.fillValue}
+              tintColor={`${streakObj.color}`}
+              onAnimationComplete={() => console.log('onAnimationComplete')}
+              backgroundColor="#3d5875"
+              duration={1000}
+              rotation={235}
+              arcSweepAngle={250}
+              lineCap="square"
+              >
+                {
+                  (fill) => (
+                    <Text>
+                      {
+                        streakObj.streak
+                      } day(s)
+                    </Text>
+                  )
+                }
+              </AnimatedCircularProgress>
+              <Text style={styles.progressViewText}>{streakObj.name}</Text>
+            </View>
+          );
+          })
+        }
+      </View>
       <ScrollView>
         <View>
           <Text style={styles.title}>Badges Earned</Text>
         </View>
-        <View style={{ backgroundColor: '#191654', height: '100%' }}>
+        <View style={{ height: '100%' }}>
           <ScrollView
             horizontal
             contentContainerStyle={styles.contentContainer}
@@ -138,7 +185,7 @@ class BadgeView extends Component {
                       />
                     </View>
                     <View style={{ width: 100, alignItems: 'center' }}>
-                      <Text style={{ color: '#FFFFFF', fontWeight: 'bold' }}>
+                      <Text style={{ color: '#34252F', fontWeight: 'bold' }}>
                         Unlock with {badgeImages[badge].value} points</Text>
                     </View>
                    </View>);
@@ -155,15 +202,37 @@ class BadgeView extends Component {
 
 const styles = StyleSheet.create({
   contentContainer: {
-    backgroundColor: '#191654',
+    // backgroundColor: '#191654',
     height: '100%'
   },
   title: {
-    // marginTop: '90%',
+    marginTop: '20%',
     marginBottom: '10%',
     alignSelf: 'center',
     color: '#191654',
     fontWeight: 'bold'
+  },
+  progressTitle: {
+    marginTop: '10%',
+    marginBottom: '10%',
+    alignSelf: 'center',
+    color: '#191654',
+    fontWeight: 'bold'
+  },
+  progressView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%'
+  },
+  oneAnimatedView: {
+    alignItems: 'center',
+    width: '30%'
+  },
+  progressViewText: {
+    marginTop: '3%',
+    color: '#191654',
+    fontWeight: 'bold',
+    alignSelf: 'center'
   },
   iconStar: {
     color: '#FFD700'

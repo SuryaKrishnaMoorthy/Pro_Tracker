@@ -1,2 +1,3 @@
 export * from './taskCategory';
-export * from './iconsList.js';
+export * from './iconsList';
+export * from './longestStreak';

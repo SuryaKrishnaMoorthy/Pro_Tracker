@@ -215,7 +215,7 @@ class TaskForm extends Component {
             leftComponent={{
               icon: 'chevron-left',
               color: '#191654',
-              onPress: () => navigation.navigate('AddTask')
+              onPress: () => navigation.goBack()
             }}
             centerComponent={{
               text: 'Let\'s get your task created!',

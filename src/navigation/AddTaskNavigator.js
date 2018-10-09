@@ -4,10 +4,17 @@ import AddTask from '../screens/AddTask';
 import TaskForm from '../screens/TaskForm';
 import SelectTask from '../screens/SelectTask';
 import EditTaskForm from '../screens/EditTaskForm';
+import DrawerPro from '../screens/DrawerPro';
 
 const AddTaskNavigator = createStackNavigator({
   HomeNavigator: {
     screen: HomeNavigator,
+    navigationOptions: () => ({
+      header: null
+    })
+  },
+  DrawerPro: {
+    screen: DrawerPro,
     navigationOptions: () => ({
       header: null
     })

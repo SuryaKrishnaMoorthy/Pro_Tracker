@@ -3,10 +3,10 @@ import { ButtonGroup } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
 
 class ButtonGroupPro extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      selectedIndex: 0
+      selectedIndex: this.props.selectedValue ? this.props.selectedValue : 0
     };
     this.updateIndex = this.updateIndex.bind(this);
   }
