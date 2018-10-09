@@ -1,10 +1,14 @@
 import { AsyncStorage } from 'react-native';
 import axios from 'axios';
 
-const baseURL = 'http://127.0.0.1:5000/api';
+const baseURL = 'https://pro-tracker-backend.herokuapp.com/api';
 
 export const loginRequest = async (body) => {
-  const response = await axios.post(`${baseURL}/users/login`, body);
+  const response = await axios({
+    method: 'post',
+    url: `${baseURL}/users/login`,
+    data: { ...body }
+  });
   try {
     await AsyncStorage.setItem('token', response.data.token);
   } catch (error) {
@@ -14,7 +18,11 @@ export const loginRequest = async (body) => {
 };
 
 export const signUpRequest = async (body) => {
-  const response = await axios.post(`${baseURL}/users/signup`, body);
+  const response = await axios({
+    method: 'post',
+    url: `${baseURL}/users/signup`,
+    data: { ...body }
+  });
   try {
     await AsyncStorage.setItem('token', response.data.token);
   } catch (error) {
