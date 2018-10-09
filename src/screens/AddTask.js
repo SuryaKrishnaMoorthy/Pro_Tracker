@@ -17,6 +17,7 @@ class AddTask extends Component {
 
   render() {
     const { navigation } = this.props;
+    console.log(navigation);
     return (
       <View>
         <Header
@@ -24,7 +25,7 @@ class AddTask extends Component {
           leftComponent={{
             icon: 'chevron-left',
             color: '#191654',
-            onPress: () => navigation.navigate('HomeNavigator')
+            onPress: () => navigation.goBack()
           }}
           centerComponent={{
             text: 'What would you like to track?',

@@ -55,6 +55,8 @@ class EditTaskForm extends Component {
       : '31',
       iconExpanded: false,
       ...task,
+      event_type: RRule.fromString(task.r_rule).all().length > 1
+        ? 'Repeated Events' : 'Single Event'
     };
   }
 
@@ -126,8 +128,7 @@ class EditTaskForm extends Component {
   }
 
   onTaskTypeChange = (value) => {
-    this.setState({ task_type: value });
-    console.log(this.state);
+    this.setState({ task_type: value.toLowerCase() });
   }
 
   onEventTypeChange = (value) => {
@@ -223,7 +224,6 @@ class EditTaskForm extends Component {
             }
           </View>
         </View>;
-
     return (
       <View>
         <Header
@@ -257,6 +257,7 @@ class EditTaskForm extends Component {
           <ButtonGroupPro
             buttonValues={['Personal', 'Professional']}
             onButtonValueChange={this.onTaskTypeChange}
+            selectedValue={this.state.task_type === 'personal' ? 0 : 1}
           />
           <ButtonGroup
             buttons={[{ element: chooseIcon }]}
@@ -284,6 +285,7 @@ class EditTaskForm extends Component {
             <ButtonGroupPro
               buttonValues={['Single Event', 'Repeated Events']}
               onButtonValueChange={this.onEventTypeChange}
+              selectedValue={this.state.event_type === 'Single Event' ? 0 : 1}
             />
           </View>
           <Divider style={{ marginTop: 10, marginBottom: 10 }} />

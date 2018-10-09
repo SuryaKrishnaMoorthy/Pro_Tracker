@@ -1,4 +1,5 @@
 import {
+  GET_ALL_TASKS,
   GET_CURRENT_DAY_TASKS,
   GET_TASKS_BY_TYPE,
   GET_ONE_TASK,
@@ -10,12 +11,15 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
+  allTasks: [],
   tasks: [],
   task: {}
 };
 
 export default (state = INITIAL_STATE, { type, payload }) => {
   switch (type) {
+    case GET_ALL_TASKS:
+      return { ...state, allTasks: payload.tasks };
     case GET_CURRENT_DAY_TASKS:
       return { ...state, ...payload };
     case GET_TASKS_BY_TYPE:

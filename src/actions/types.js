@@ -13,6 +13,7 @@ export const LOGOUT = 'logout';
 export const DELETE_USER = 'delete_user';
 export const GET_USER = 'get_user';
 
+export const GET_ALL_TASKS = 'get_all_tasks';
 export const GET_CURRENT_DAY_TASKS = 'get_current_day_tasks';
 export const GET_TASKS_BY_TYPE = 'get_tasks_by_type';
 export const GET_ONE_TASK = 'get_one_task';

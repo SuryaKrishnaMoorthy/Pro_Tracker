@@ -93,7 +93,7 @@ class Sidebar extends Component {
                 onPress={() => {
                   this.props.getTasksByType('personal');
                   navigator.navigate('HomeNavigator', {
-                    currentPage: 'Personal Tasks'
+                    currentPage: 'My Personal Tasks'
                   });
                   this.props.closeDrawer();
                 }}
@@ -115,7 +115,7 @@ class Sidebar extends Component {
                 onPress={() => {
                   this.props.getTasksByType('professional');
                   navigator.navigate('HomeNavigator', {
-                    currentPage: 'Professional Tasks'
+                    currentPage: 'My Professional Tasks'
                   });
                   this.props.closeDrawer();
                 }}
@@ -139,8 +139,8 @@ class Sidebar extends Component {
             <Content>
               <ListItem
                 icon
-                onPress={() => {
-                  this.props.getBadges();
+                onPress={async () => {
+                  await this.props.getBadges();
                   navigator.navigate('BadgeView');
                   this.props.closeDrawer();
                 }}

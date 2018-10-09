@@ -121,8 +121,7 @@ class TaskForm extends Component {
   }
 
   onTaskTypeChange = (value) => {
-    this.setState({ task_type: value });
-    console.log(this.state);
+    this.setState({ task_type: value.toLowerCase() });
   }
 
   onEventTypeChange = (value) => {
@@ -216,7 +215,7 @@ class TaskForm extends Component {
             leftComponent={{
               icon: 'chevron-left',
               color: '#191654',
-              onPress: () => navigation.navigate('AddTask')
+              onPress: () => navigation.goBack()
             }}
             centerComponent={{
               text: 'Let\'s get your task created!',
