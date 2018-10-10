@@ -141,8 +141,8 @@ class BadgeView extends Component {
                           flexDirection: 'column',
                           alignItems: 'center',
                           marginTop: 10,
-                          marginLeft: 40,
-                          marginRight: 20
+                          marginLeft: 10,
+                          marginRight: 10
                         }}
                         key={index}
                       >
@@ -170,8 +170,8 @@ class BadgeView extends Component {
                       flexDirection: 'column',
                       alignItems: 'center',
                       marginTop: 10,
-                      marginLeft: 20,
-                      marginRight: 40
+                      marginLeft: 10,
+                      marginRight: 10
                     }}
                     key={index}
                   >
@@ -210,14 +210,16 @@ const styles = StyleSheet.create({
     marginBottom: '10%',
     alignSelf: 'center',
     color: '#191654',
-    fontWeight: 'bold'
+    fontWeight: 'normal',
+    fontSize: 17
   },
   progressTitle: {
     marginTop: '10%',
     marginBottom: '10%',
     alignSelf: 'center',
     color: '#191654',
-    fontWeight: 'bold'
+    fontWeight: 'normal',
+    fontSize: 17
   },
   progressView: {
     flexDirection: 'row',
@@ -238,7 +240,7 @@ const styles = StyleSheet.create({
     color: '#FFD700'
   },
   badgeNumber: {
-    color: '#ffffff',
+    color: '#000000',
     fontSize: 20,
     fontWeight: 'bold',
     marginTop: 3
