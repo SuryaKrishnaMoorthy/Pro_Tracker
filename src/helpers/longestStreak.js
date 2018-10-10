@@ -10,8 +10,11 @@ const buildStreakObj = (tasks) => {
       return moment(date).format('YYYY-MM-DD');
     });
 
-    const statusDates = task.taskStatus.map(status =>
-      moment(status.task_date).format('YYYY-MM-DD'));
+    let statusDates = task.taskStatus.map(status =>
+      moment.utc(status.task_date).format('YYYY-MM-DD'));
+
+    statusDates = statusDates.sort((left, right) =>
+     moment(left).diff(moment(right)));
 
     let statusIndex = 0;
     let taskIndex = 0;
