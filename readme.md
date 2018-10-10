@@ -17,23 +17,23 @@ proTracker is a one stop app where you can plan your day, create habits and trac
 
 ### BUILT WITH
 
-    -React Native
-    -Redux
-    -Javascript, HTML & CSS
-    -Axios
-    -Nodejs
-    -Express
-    -Moment
+    - React Native
+    - Redux
+    - Axios
+    - Nodejs
+    - Express
+    - Moment
+    - Javascript & CSS
 
 ### Backend for this app can be viewed in
 -  https://github.com/SuryaKrishnaMoorthy/Pro_Tracker_Backend
 
 ## How to install?
--Fork and clone the repo.
--Run npm install in the repo.
--Install expo.
--Run npm start to start.
+- Fork and clone the repo.
+- Run npm install in the repo.
+- Install expo.
+- Run npm start to start.
 
 ### Developed By
 
-  -For more information, please contact: Surya Krishna Moorthy at: ayrus2289@gmail.com
+  - For more information, please contact: Surya Krishna Moorthy at: ayrus2289@gmail.com
