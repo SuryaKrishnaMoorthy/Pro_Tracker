@@ -50,13 +50,12 @@ const compare = (a, b) => {
 };
 
 const decideFillValue = (topStreaks) => {
-  console.log(topStreaks);
-    if (topStreaks[0]) {
+    if (topStreaks[0] && topStreaks[0].streak > 0) {
       topStreaks[0].fillValue = 80;
       topStreaks[0].color = '#FE5F55';
     }
 
-    if (topStreaks[1]) {
+    if (topStreaks[1] && topStreaks[1].streak > 0) {
       topStreaks[1].color = '#17BEBB';
       if (topStreaks[0].streak === topStreaks[1].streak) {
         topStreaks[1].fillValue = 80;
@@ -65,7 +64,7 @@ const decideFillValue = (topStreaks) => {
       }
     }
 
-    if (topStreaks[2]) {
+    if (topStreaks[2] && topStreaks[2].streak > 0) {
       topStreaks[2].color = '#EAC435';
       if (topStreaks[2].streak === topStreaks[1].streak) {
         topStreaks[2].fillValue = topStreaks[1].fillValue;
