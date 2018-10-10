@@ -16,7 +16,7 @@ import {
  } from '../actions/types';
 
 const INITIAL_STATE = {
-  email: 'janedoe@gmail.com',
+  email: 'ayrus2289@gmail.com',
   password: 'password',
   first_name: '',
   last_name: '',

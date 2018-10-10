@@ -1,7 +1,7 @@
 import { AsyncStorage } from 'react-native';
 import axios from 'axios';
 
-const baseURL = 'http://127.0.0.1:5000/api/badges';
+const baseURL = 'https://pro-tracker-backend.herokuapp.com/api/badges';
 
 export const getBadgeRequest = async () => {
   try {
