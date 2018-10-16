@@ -33,7 +33,8 @@ proTracker is a one stop app where you can plan your day, create habits and trac
   - Javascript & CSS
 
 * Back End
-
+  - PostgreSQL
+  - RRule
   - Node.js
   - Express.js
   - Knex
