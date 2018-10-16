@@ -6,34 +6,49 @@ proTracker is a one stop app where you can plan your day, create habits and trac
 
 ## Features
 
-- Users can create, edit, delete a task
-- View progress in calendar
-- Evaluate progress
-- Points to keep you motivated
+- Login/Signup.
+- Users can create, edit, delete a task.
+- View progress in calendar.
+- Evaluate progress of each task.
+- Points to keep you motivated.
+- View the longest streak of top 3 tasks.
 
 ## What does proTracker looks like?
 
-![start page](./src/assets/screenShots/proTrackerscreens.png)
+#### Login and View Tasks
+![login and view](./src/assets/gifs/login_and_view.gif)
+
+#### Create a task
+![create a task](./src/assets/gifs/create_task.gif)
+
+#### Edit a task and view badges
+![create a task](./src/assets/gifs/edit_and_badges.gif)
 
 ### BUILT WITH
-
+  Front End
     - React Native
     - Redux
     - Axios
-    - Nodejs
-    - Express
     - Moment
     - Javascript & CSS
+
+  Back End
+    - Node.js
+    - Express.js
+    - Knex
+    - JWT
+    - bcrypt
 
 ### Backend for this app can be viewed in
 -  https://github.com/SuryaKrishnaMoorthy/Pro_Tracker_Backend
 
 ## How to install?
 - Fork and clone the repo.
-- Run npm install in the repo.
-- Install expo.
-- Run npm start to start.
+- Run ```npm install``` in the repo.
+- Run ```npm start``` or ```expo start``` to start.
 
 ### Developed By
+
+  Surya Krishna Moorthy
 
   - For more information, please contact: Surya Krishna Moorthy at: ayrus2289@gmail.com
