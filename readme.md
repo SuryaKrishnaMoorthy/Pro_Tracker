@@ -25,19 +25,20 @@ proTracker is a one stop app where you can plan your day, create habits and trac
 <img src="./src/assets/gifs/edit_and_badges.gif" width="350">
 
 ### BUILT WITH
-  Front End
-    - React Native
-    - Redux
-    - Axios
-    - Moment
-    - Javascript & CSS
+* Front End
+  - React Native
+  - Redux
+  - Axios
+  - Moment
+  - Javascript & CSS
 
-  Back End
-    - Node.js
-    - Express.js
-    - Knex
-    - JWT
-    - bcrypt
+* Back End
+
+  - Node.js
+  - Express.js
+  - Knex
+  - JWT
+  - bcrypt
 
 ### Backend for this app can be viewed in
 -  https://github.com/SuryaKrishnaMoorthy/Pro_Tracker_Backend
@@ -49,6 +50,6 @@ proTracker is a one stop app where you can plan your day, create habits and trac
 
 ### Developed By
 
-  Surya Krishna Moorthy
+Surya Krishna Moorthy
 
-  - For more information, please contact: Surya Krishna Moorthy at: ayrus2289@gmail.com
+- For more information, please contact: Surya Krishna Moorthy at: ayrus2289@gmail.com
