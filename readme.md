@@ -16,13 +16,13 @@ proTracker is a one stop app where you can plan your day, create habits and trac
 ## What does proTracker looks like?
 
 #### Login and View Tasks
-![login and view](./src/assets/gifs/login_and_view.gif)
+<img src="./src/assets/gifs/login_and_view.gif" width="350">
 
 #### Create a task
-![create a task](./src/assets/gifs/create_task.gif)
+<img src="./src/assets/gifs/create_task.gif" width="350">
 
 #### Edit a task and view badges
-![create a task](./src/assets/gifs/edit_and_badges.gif)
+<img src="./src/assets/gifs/edit_and_badges.gif" width="350">
 
 ### BUILT WITH
   Front End
